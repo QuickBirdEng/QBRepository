@@ -8,7 +8,7 @@
 
 import Foundation
 
-final class AnyRepository<Model>: Repository {
+public final class AnyRepository<Model>: Repository {
 
     private let _getAll: ((AnyCollection<Model>) -> Void) -> Void
     private let _getElement: (Any, (Model?) -> Void) -> Void
@@ -19,7 +19,7 @@ final class AnyRepository<Model>: Repository {
     private let _delete: (Model, Bool, (Error?) -> Void) -> Void
     private let _deleteAll: (Bool, (Error?) -> Void) -> Void
 
-    init<A: Repository>(_ repository: A) where A.Model == Model {
+    public init<A: Repository>(_ repository: A) where A.Model == Model {
         _getAll = repository.getAll
         _getElement = repository.getElement
         _getElements = repository.getElements
@@ -30,37 +30,37 @@ final class AnyRepository<Model>: Repository {
         _deleteAll = repository.deleteAll
     }
 
-    func getAll(_ completion: (AnyCollection<Model>) -> Void) {
+    public func getAll(_ completion: (AnyCollection<Model>) -> Void) {
         _getAll(completion)
     }
 
-    func getElements(fileredBy predicateFormat: String, _ args: Any..., completion: (AnyCollection<Model>) -> Void) {
+    public func getElements(fileredBy predicateFormat: String, _ args: Any..., completion: (AnyCollection<Model>) -> Void) {
         _getElements(predicateFormat, args) { results in
             completion(results)
         }
     }
 
-    func getElement<Id>(withId id: Id, completion: (Model?) -> Void) {
+    public func getElement<Id>(withId id: Id, completion: (Model?) -> Void) {
         _getElement(id, completion)
     }
 
-    func create(_ model: Model, cascading: Bool, completion: (RepositoryEditResult<Model>) -> Void) {
+    public func create(_ model: Model, cascading: Bool, completion: (RepositoryEditResult<Model>) -> Void) {
         _create(model, cascading, completion)
     }
 
-    func create(_ models: [Model], cascading: Bool, completion: (RepositoryEditResult<[Model]>) -> Void) {
+    public func create(_ models: [Model], cascading: Bool, completion: (RepositoryEditResult<[Model]>) -> Void) {
         _createMultiple(models, cascading, completion)
     }
 
-    func update(_ model: Model, cascading: Bool, completion: (RepositoryEditResult<Model>) -> Void) {
+    public func update(_ model: Model, cascading: Bool, completion: (RepositoryEditResult<Model>) -> Void) {
         _update(model, cascading, completion)
     }
 
-    func delete(_ model: Model, cascading: Bool, completion: (Error?) -> Void) {
+    public func delete(_ model: Model, cascading: Bool, completion: (Error?) -> Void) {
         _delete(model, cascading, completion)
     }
 
-    func deleteAll(cascading: Bool, _ completion: (Error?) -> Void) {
+    public func deleteAll(cascading: Bool, _ completion: (Error?) -> Void) {
         _deleteAll(cascading, completion)
     }
 

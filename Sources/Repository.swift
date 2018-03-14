@@ -8,12 +8,12 @@
 
 import Foundation
 
-enum RepositoryEditResult<Model> {
+public enum RepositoryEditResult<Model> {
     case success(Model)
     case error(Error)
 }
 
-protocol Repository {
+public protocol Repository {
     associatedtype Model
 
     func getAll(_ completion: (AnyCollection<Model>) -> Void)

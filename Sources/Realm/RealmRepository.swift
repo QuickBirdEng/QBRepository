@@ -19,28 +19,28 @@ class RealmRepository<Object: RealmSwift.Object>: Repository {
     private let realm: Realm
 
     // swiftlint:disable:next force_try
-    init(realm: Realm = try! Realm()) {
+    public init(realm: Realm = try! Realm()) {
         self.realm = realm
     }
 
-    func getAll(_ completion: (AnyCollection<Model>) -> Void) {
+    public func getAll(_ completion: (AnyCollection<Model>) -> Void) {
         let allObjects = realm.objects(Model.self)
         completion(AnyCollection(allObjects))
     }
 
-    func getElements(fileredBy predicateFormat: String, _ args: Any..., completion: (AnyCollection<Model>) -> Void) {
+    public func getElements(fileredBy predicateFormat: String, _ args: Any..., completion: (AnyCollection<Model>) -> Void) {
         let unrwappedArgs = unwrapArgs(args)
         let predicate = NSPredicate(format: predicateFormat, argumentArray: unrwappedArgs)
         let objects = realm.objects(Model.self).filter(predicate)
         completion(AnyCollection(objects))
     }
 
-    func getElement<Id>(withId id: Id, completion: (Model?) -> Void) {
+    public func getElement<Id>(withId id: Id, completion: (Model?) -> Void) {
         let object = realm.object(ofType: Model.self, forPrimaryKey: id)
         completion(object)
     }
 
-    func create(_ model: Model, cascading: Bool, completion: (RepositoryEditResult<Model>) -> Void) {
+    public func create(_ model: Model, cascading: Bool, completion: (RepositoryEditResult<Model>) -> Void) {
         do {
             try realm.write {
                 realm.add(model, cascading: cascading)
@@ -51,7 +51,7 @@ class RealmRepository<Object: RealmSwift.Object>: Repository {
         }
     }
 
-    func create(_ models: [Model], cascading: Bool, completion: (RepositoryEditResult<[Model]>) -> Void) {
+    public func create(_ models: [Model], cascading: Bool, completion: (RepositoryEditResult<[Model]>) -> Void) {
         do {
             try realm.write {
                 realm.add(models, cascading: cascading)
@@ -62,7 +62,7 @@ class RealmRepository<Object: RealmSwift.Object>: Repository {
         }
     }
 
-    func update(_ model: Model, cascading: Bool, completion: (RepositoryEditResult<Model>) -> Void) {
+    public func update(_ model: Model, cascading: Bool, completion: (RepositoryEditResult<Model>) -> Void) {
         guard let primaryKey = Model.self.primaryKey(),
             let id = model.value(forKey: primaryKey),
             realm.object(ofType: Model.self, forPrimaryKey: id) == nil else {
@@ -80,7 +80,7 @@ class RealmRepository<Object: RealmSwift.Object>: Repository {
         }
     }
 
-    func delete(_ model: Model, cascading: Bool = false, completion: (Error?) -> Void) {
+    public func delete(_ model: Model, cascading: Bool = false, completion: (Error?) -> Void) {
         do {
             try realm.write {
                 realm.delete(model, cascading: cascading)
@@ -91,7 +91,7 @@ class RealmRepository<Object: RealmSwift.Object>: Repository {
         }
     }
 
-    func deleteAll(cascading: Bool = false, _ completion: (Error?) -> Void) {
+    public func deleteAll(cascading: Bool = false, _ completion: (Error?) -> Void) {
         let allObjects = realm.objects(Model.self)
         do {
             try realm.write {

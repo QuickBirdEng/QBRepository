@@ -1,16 +1,32 @@
 PODS:
-  - QBRepository (0.1.0)
+  - QBRepository/Core (0.1.1)
+  - QBRepository/Realm (0.1.1):
+    - QBRepository/Core
+    - RealmSwift (~> 3.0)
+  - QBRepository/RxSwift (0.1.1):
+    - QBRepository/Core
+    - RxSwift (~> 4.0)
+  - Realm (3.1.1):
+    - Realm/Headers (= 3.1.1)
+  - Realm/Headers (3.1.1)
+  - RealmSwift (3.1.1):
+    - Realm (= 3.1.1)
+  - RxSwift (4.1.2)
 
 DEPENDENCIES:
-  - QBRepository (from `../`)
+  - QBRepository/Realm (from `../`)
+  - QBRepository/RxSwift (from `../`)
 
 EXTERNAL SOURCES:
   QBRepository:
     :path: ../
 
 SPEC CHECKSUMS:
-  QBRepository: 73001e26484cab72dcc6ff1e8d7238b78162aa1f
+  QBRepository: cf05fe462b611e382634e628468206c0d4b5cfc1
+  Realm: 42d1c38a5b1bbcc828b48a7ce702cb86fc68adf4
+  RealmSwift: d31937ca6a6ee54acde64ec839523c0a3c04924b
+  RxSwift: e49536837d9901277638493ea537394d4b55f570
 
-PODFILE CHECKSUM: 8f2ba9df17a621c705fd4e8204e86d48b922c114
+PODFILE CHECKSUM: c2489b9580f42adfe6302c93f5c203b0098b51dd
 
 COCOAPODS: 1.4.0

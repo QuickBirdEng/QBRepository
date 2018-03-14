@@ -1,6 +1,8 @@
 use_frameworks!
+inhibit_all_warnings!
+
 target 'QBRepository_Tests' do
-  pod 'QBRepository', :path => '../'
-  
+  pod 'QBRepository/Realm', :path => '../'
+  pod 'QBRepository/RxSwift', :path => '../'
   
 end

@@ -25,7 +25,7 @@ class RxRepository<Model> {
         self.base = base
     }
 
-    func getAll() -> Single<AnyCollection<Model>> {
+    public func getAll() -> Single<AnyCollection<Model>> {
         return Single.create { single -> Disposable in
             self.base.getAll { models in
                 single(.success(models))
@@ -35,7 +35,7 @@ class RxRepository<Model> {
         }
     }
 
-    func getElements(fileredBy predicateFormat: String, _ args: Any...) -> Single<AnyCollection<Model>> {
+    public func getElements(fileredBy predicateFormat: String, _ args: Any...) -> Single<AnyCollection<Model>> {
         return Single.create { single -> Disposable in
             self.base.getElements(fileredBy: predicateFormat, args) { models in
                 single(.success(models))
@@ -45,7 +45,7 @@ class RxRepository<Model> {
         }
     }
 
-    func getElement<Id>(withId id: Id) -> Single<Model?> {
+    public func getElement<Id>(withId id: Id) -> Single<Model?> {
         return Single.create { single -> Disposable in
             self.base.getElement(withId: id) { models in
                 single(.success(models))
@@ -55,7 +55,7 @@ class RxRepository<Model> {
         }
     }
 
-    func create(_ model: Model, cascading: Bool) -> Single<Model> {
+    public func create(_ model: Model, cascading: Bool) -> Single<Model> {
         return Single.create { single -> Disposable in
             self.base.create(model, cascading: cascading) { result in
                 switch result {
@@ -70,7 +70,7 @@ class RxRepository<Model> {
         }
     }
 
-    func createMutiple(_ models: [Model], cascading: Bool) -> Single<[Model]> {
+    public func createMutiple(_ models: [Model], cascading: Bool) -> Single<[Model]> {
         return Single.create { single -> Disposable in
             self.base.create(models, cascading: cascading) { result in
                 switch result {
@@ -85,7 +85,7 @@ class RxRepository<Model> {
         }
     }
 
-    func update(_ model: Model, cascading: Bool) -> Single<Model> {
+    public func update(_ model: Model, cascading: Bool) -> Single<Model> {
         return Single.create { single -> Disposable in
             self.base.update(model, cascading: cascading) { result in
                 switch result {
@@ -100,7 +100,7 @@ class RxRepository<Model> {
         }
     }
 
-    func delete(_ model: Model, cascading: Bool) -> Single<Void> {
+    public func delete(_ model: Model, cascading: Bool) -> Single<Void> {
         return Single.create { single -> Disposable in
             self.base.delete(model, cascading: cascading) { error in
                 if let error = error {
@@ -114,7 +114,7 @@ class RxRepository<Model> {
         }
     }
 
-    func deleteAll(cascading: Bool) -> Single<Void> {
+    public func deleteAll(cascading: Bool) -> Single<Void> {
         return Single.create { single -> Disposable in
             self.base.deleteAll(cascading: cascading) { error in
                 if let error = error {

@@ -133,6 +133,7 @@
 				TargetAttributes = {
 					607FACE41AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
+						DevelopmentTeam = 77E79NGPCV;
 						LastSwiftMigration = 0900;
 						TestTargetID = 607FACCF1AFB9204008FA782;
 					};
@@ -193,10 +194,16 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-QBRepository_Tests/Pods-QBRepository_Tests-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/QBRepository/QBRepository.framework",
+				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
+				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/QBRepository.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -335,6 +342,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 639D84E3F3CC6D2BD355FB90 /* Pods-QBRepository_Tests.debug.xcconfig */;
 			buildSettings = {
+				DEVELOPMENT_TEAM = 77E79NGPCV;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -356,6 +364,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 352B5427F7824639637F5F98 /* Pods-QBRepository_Tests.release.xcconfig */;
 			buildSettings = {
+				DEVELOPMENT_TEAM = 77E79NGPCV;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
