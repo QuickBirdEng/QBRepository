@@ -1,0 +1,22 @@
+{
+  "name": "QBRepository",
+  "version": "0.1.0",
+  "summary": "A short description of QBRepository.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/grafele/QBRepository",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "grafele": "stefan.kofler@quickbirdstudios.com"
+  },
+  "source": {
+    "git": "https://github.com/grafele/QBRepository.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "source_files": "QBRepository/Classes/**/*"
+}

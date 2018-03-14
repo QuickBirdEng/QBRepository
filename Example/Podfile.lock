@@ -1,0 +1,16 @@
+PODS:
+  - QBRepository (0.1.0)
+
+DEPENDENCIES:
+  - QBRepository (from `../`)
+
+EXTERNAL SOURCES:
+  QBRepository:
+    :path: ../
+
+SPEC CHECKSUMS:
+  QBRepository: 73001e26484cab72dcc6ff1e8d7238b78162aa1f
+
+PODFILE CHECKSUM: 8f2ba9df17a621c705fd4e8204e86d48b922c114
+
+COCOAPODS: 1.4.0

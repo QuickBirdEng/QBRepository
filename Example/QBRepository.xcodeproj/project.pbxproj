@@ -17,10 +17,10 @@
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		639D84E3F3CC6D2BD355FB90 /* Pods-QBRepository_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QBRepository_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-QBRepository_Tests/Pods-QBRepository_Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		67614DD62355462DBB35B885 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; name = README.md; path = ../README.md; sourceTree = "<group>"; };
-		D70E20B9F90E8EA566F0C80D /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		67614DD62355462DBB35B885 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		D70E20B9F90E8EA566F0C80D /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		E042B0CA17BDC289D52A4A3C /* Pods_QBRepository_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QBRepository_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		F5C5DBBB8777ED2E11D0EA92 /* QBRepository.podspec */ = {isa = PBXFileReference; includeInIndex = 1; name = QBRepository.podspec; path = ../QBRepository.podspec; sourceTree = "<group>"; };
+		F5C5DBBB8777ED2E11D0EA92 /* QBRepository.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = QBRepository.podspec; path = ../QBRepository.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,10 +131,6 @@
 				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = CocoaPods;
 				TargetAttributes = {
-					607FACCF1AFB9204008FA782 = {
-						CreatedOnToolsVersion = 6.3.1;
-						LastSwiftMigration = 0900;
-					};
 					607FACE41AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
 						LastSwiftMigration = 0900;

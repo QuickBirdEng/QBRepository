@@ -9,34 +9,36 @@
 Pod::Spec.new do |s|
   s.name             = 'QBRepository'
   s.version          = '0.1.0'
-  s.summary          = 'A short description of QBRepository.'
-
-# This description is used to generate tags and improve search results.
-#   * Think: What does it do? Why did you write it? What is the focus?
-#   * Try to keep it short, snappy and to the point.
-#   * Write the description between the DESC delimiters below.
-#   * Finally, don't worry about the indent, CocoaPods strips it!
+  s.summary          = 'QBRepository is a simple implementation of the repository pattern for data access in Swift.'
 
   s.description      = <<-DESC
-TODO: Add long description of the pod here.
+QBRepository is a simple implementation of the repository pattern for data access in Swift, with a default wrapper for Realm und reactive extensions for RxSwift.
                        DESC
 
-  s.homepage         = 'https://github.com/grafele/QBRepository'
-  # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
+  s.homepage         = 'https://github.com/quickbirdstudios/QBRepository'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'grafele' => 'stefan.kofler@quickbirdstudios.com' }
-  s.source           = { :git => 'https://github.com/grafele/QBRepository.git', :tag => s.version.to_s }
-  # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
+  s.author           = { 'Stefan Kofler' => 'stefan.kofler@quickbirdstudios.com' }
+  s.source           = { :git => 'https://github.com/quickbirdstudios/QBRepository.git', :tag => s.version.to_s }
 
   s.ios.deployment_target = '8.0'
+  s.swift_version = '4.0'
+  s.default_subspec = 'Core'
 
-  s.source_files = 'QBRepository/Classes/**/*'
-  
-  # s.resource_bundles = {
-  #   'QBRepository' => ['QBRepository/Assets/*.png']
-  # }
+  s.subspec 'Core' do |ss|
+    ss.source_files = 'Sources/*.swift'
+    ss.framework  = 'Foundation'
+  end
 
-  # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
+  s.subspec 'Realm' do |ss|
+    ss.source_files = 'Sources/Realm/*.swift'
+    ss.dependency 'QBRepository/Core'
+    ss.dependency 'RealmSwift', '~> 3.0'
+  end
+
+  s.subspec 'RxSwift' do |ss|
+    ss.source_files = 'Sources/RxSwift/*.swift'
+    ss.dependency 'QBRepository/Core'
+    ss.dependency 'RxSwift', '~> 4.0'
+  end
+
 end

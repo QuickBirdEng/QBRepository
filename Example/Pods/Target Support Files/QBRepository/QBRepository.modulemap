@@ -1,0 +1,6 @@
+framework module QBRepository {
+  umbrella header "QBRepository-umbrella.h"
+
+  export *
+  module * { export * }
+}
