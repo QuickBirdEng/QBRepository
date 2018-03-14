@@ -9,12 +9,12 @@
 import Foundation
 import RealmSwift
 
-enum RealmError: Error {
+public enum RealmError: Error {
     case noOriginalObject
 }
 
-class RealmRepository<Object: RealmSwift.Object>: Repository {
-    typealias Model = Object
+public class RealmRepository<Object: RealmSwift.Object>: Repository {
+    public typealias Model = Object
 
     private let realm: Realm
 

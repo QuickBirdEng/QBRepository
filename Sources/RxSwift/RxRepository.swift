@@ -9,7 +9,7 @@
 import Foundation
 import RxSwift
 
-extension AnyRepository {
+public extension AnyRepository {
 
     var rx: RxRepository<Model> {
         return RxRepository(self)
@@ -17,7 +17,7 @@ extension AnyRepository {
 
 }
 
-class RxRepository<Model> {
+public class RxRepository<Model> {
 
     let base: AnyRepository<Model>
 
