@@ -1,0 +1,6 @@
+use_frameworks!
+target 'QBRepository_Tests' do
+  pod 'QBRepository', :path => '../'
+  
+  
+end
