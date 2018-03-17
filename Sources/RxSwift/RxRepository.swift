@@ -57,7 +57,7 @@ public class RxRepository<Model> {
 
     public func create(_ model: Model, cascading: Bool) -> Single<Model> {
         return Single.create { single -> Disposable in
-            self.base.create(model, cascading: cascading) { result in
+            self.base.create(model) { result in
                 switch result {
                 case .success(let model):
                     single(.success(model))
@@ -72,7 +72,7 @@ public class RxRepository<Model> {
 
     public func createMutiple(_ models: [Model], cascading: Bool) -> Single<[Model]> {
         return Single.create { single -> Disposable in
-            self.base.create(models, cascading: cascading) { result in
+            self.base.create(models) { result in
                 switch result {
                 case .success(let models):
                     single(.success(models))
@@ -87,7 +87,7 @@ public class RxRepository<Model> {
 
     public func update(_ model: Model, cascading: Bool) -> Single<Model> {
         return Single.create { single -> Disposable in
-            self.base.update(model, cascading: cascading) { result in
+            self.base.update(model) { result in
                 switch result {
                 case .success(let model):
                     single(.success(model))
@@ -102,7 +102,7 @@ public class RxRepository<Model> {
 
     public func delete(_ model: Model, cascading: Bool) -> Single<Void> {
         return Single.create { single -> Disposable in
-            self.base.delete(model, cascading: cascading) { error in
+            self.base.delete(model) { error in
                 if let error = error {
                     single(.error(error))
                 } else {
@@ -116,7 +116,7 @@ public class RxRepository<Model> {
 
     public func deleteAll(cascading: Bool) -> Single<Void> {
         return Single.create { single -> Disposable in
-            self.base.deleteAll(cascading: cascading) { error in
+            self.base.deleteAll { error in
                 if let error = error {
                     single(.error(error))
                 } else {

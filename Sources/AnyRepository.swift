@@ -13,11 +13,11 @@ public final class AnyRepository<Model>: Repository {
     private let _getAll: ((AnyCollection<Model>) -> Void) -> Void
     private let _getElement: (Any, (Model?) -> Void) -> Void
     private let _getElements: (String, Any..., (AnyCollection<Model>) -> Void) -> Void
-    private let _create: (Model, Bool, (RepositoryEditResult<Model>) -> Void) -> Void
-    private let _createMultiple: ([Model], Bool, (RepositoryEditResult<[Model]>) -> Void) -> Void
-    private let _update: (Model, Bool, (RepositoryEditResult<Model>) -> Void) -> Void
-    private let _delete: (Model, Bool, (Error?) -> Void) -> Void
-    private let _deleteAll: (Bool, (Error?) -> Void) -> Void
+    private let _create: (Model, (RepositoryEditResult<Model>) -> Void) -> Void
+    private let _createMultiple: ([Model], (RepositoryEditResult<[Model]>) -> Void) -> Void
+    private let _update: (Model, (RepositoryEditResult<Model>) -> Void) -> Void
+    private let _delete: (Model, (Error?) -> Void) -> Void
+    private let _deleteAll: ((Error?) -> Void) -> Void
 
     public init<A: Repository>(_ repository: A) where A.Model == Model {
         _getAll = repository.getAll
@@ -40,28 +40,28 @@ public final class AnyRepository<Model>: Repository {
         }
     }
 
-    public func getElement<Id>(withId id: Id, completion: (Model?) -> Void) {
+    public func getElement<Id>(withId id: Id, _ completion: (Model?) -> Void) {
         _getElement(id, completion)
     }
 
-    public func create(_ model: Model, cascading: Bool, completion: (RepositoryEditResult<Model>) -> Void) {
-        _create(model, cascading, completion)
+    public func create(_ model: Model, _ completion: (RepositoryEditResult<Model>) -> Void) {
+        _create(model, completion)
     }
 
-    public func create(_ models: [Model], cascading: Bool, completion: (RepositoryEditResult<[Model]>) -> Void) {
-        _createMultiple(models, cascading, completion)
+    public func create(_ models: [Model], _ completion: (RepositoryEditResult<[Model]>) -> Void) {
+        _createMultiple(models, completion)
     }
 
-    public func update(_ model: Model, cascading: Bool, completion: (RepositoryEditResult<Model>) -> Void) {
-        _update(model, cascading, completion)
+    public func update(_ model: Model, _ completion: (RepositoryEditResult<Model>) -> Void) {
+        _update(model, completion)
     }
 
-    public func delete(_ model: Model, cascading: Bool, completion: (Error?) -> Void) {
-        _delete(model, cascading, completion)
+    public func delete(_ model: Model, _ completion: (Error?) -> Void) {
+        _delete(model, completion)
     }
 
-    public func deleteAll(cascading: Bool, _ completion: (Error?) -> Void) {
-        _deleteAll(cascading, completion)
+    public func deleteAll(_ completion: (Error?) -> Void) {
+        _deleteAll(completion)
     }
 
 }

@@ -11,37 +11,37 @@ import RealmSwift
 import Realm
 
 protocol CascadeDeleting: class {
-    func delete<S: Sequence>(_ objects: S, cascading: Bool) where S.Iterator.Element: Object
-    func delete<Entity: Object>(_ entity: Entity, cascading: Bool)
+    func delete<S: Sequence>(_ objects: S, cascade: Bool) where S.Iterator.Element: Object
+    func delete<Entity: Object>(_ entity: Entity, cascade: Bool)
 
-    func add<S: Sequence>(_ objects: S, cascading: Bool) where S.Iterator.Element: Object
-    func add<Entity: Object>(_ entity: Entity, cascading: Bool)
+    func add<S: Sequence>(_ objects: S, cascade: Bool) where S.Iterator.Element: Object
+    func add<Entity: Object>(_ entity: Entity, cascade: Bool)
 }
 
 extension Realm: CascadeDeleting {
 
-    func delete<S: Sequence>(_ objects: S, cascading: Bool) where S.Iterator.Element: Object {
+    func delete<S: Sequence>(_ objects: S, cascade: Bool) where S.Iterator.Element: Object {
         for object in objects {
-            delete(object, cascading: cascading)
+            delete(object, cascade: cascade)
         }
     }
 
-    func delete<Entity: Object>(_ entity: Entity, cascading: Bool) {
-        if cascading {
+    func delete<Entity: Object>(_ entity: Entity, cascade: Bool) {
+        if cascade {
             cascadeDelete(entity)
         } else {
             delete(entity)
         }
     }
 
-    func add<S: Sequence>(_ objects: S, cascading: Bool) where S.Iterator.Element: Object {
+    func add<S: Sequence>(_ objects: S, cascade: Bool) where S.Iterator.Element: Object {
         for object in objects {
-            add(object, cascading: cascading)
+            add(object, cascade: cascade)
         }
     }
 
-    func add<Entity: Object>(_ entity: Entity, cascading: Bool) {
-        if cascading {
+    func add<Entity: Object>(_ entity: Entity, cascade: Bool) {
+        if cascade {
             cascadeDeleteSubtypes(entity)
         }
 

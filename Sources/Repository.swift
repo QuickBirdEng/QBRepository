@@ -18,10 +18,10 @@ public protocol Repository {
 
     func getAll(_ completion: (AnyCollection<Model>) -> Void)
     func getElements(fileredBy predicateFormat: String, _ args: Any..., completion: (AnyCollection<Model>) -> Void)
-    func getElement<Id>(withId id: Id, completion: (Model?) -> Void)
-    func create(_ model: Model, cascading: Bool, completion: (RepositoryEditResult<Model>) -> Void)
-    func create(_ models: [Model], cascading: Bool, completion: (RepositoryEditResult<[Model]>) -> Void)
-    func update(_ model: Model, cascading: Bool, completion: (RepositoryEditResult<Model>) -> Void)
-    func delete(_ model: Model, cascading: Bool, completion: (Error?) -> Void)
-    func deleteAll(cascading: Bool, _ completion: (Error?) -> Void)
+    func getElement<Id>(withId id: Id, _ completion: (Model?) -> Void)
+    func create(_ model: Model, _ completion: (RepositoryEditResult<Model>) -> Void)
+    func create(_ models: [Model], _ completion: (RepositoryEditResult<[Model]>) -> Void)
+    func update(_ model: Model, _ completion: (RepositoryEditResult<Model>) -> Void)
+    func delete(_ model: Model, _ completion: (Error?) -> Void)
+    func deleteAll(_ completion: (Error?) -> Void)
 }

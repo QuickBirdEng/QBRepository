@@ -35,15 +35,15 @@ public class RealmRepository<Object: RealmSwift.Object>: Repository {
         completion(AnyCollection(objects))
     }
 
-    public func getElement<Id>(withId id: Id, completion: (Model?) -> Void) {
+    public func getElement<Id>(withId id: Id, _ completion: (Model?) -> Void) {
         let object = realm.object(ofType: Model.self, forPrimaryKey: id)
         completion(object)
     }
 
-    public func create(_ model: Model, cascading: Bool, completion: (RepositoryEditResult<Model>) -> Void) {
+    public func create(_ model: Model, _ completion: (RepositoryEditResult<Model>) -> Void) {
         do {
             try realm.write {
-                realm.add(model, cascading: cascading)
+                realm.add(model, cascade: isIdentifiable())
             }
             completion(.success(model))
         } catch {
@@ -51,10 +51,10 @@ public class RealmRepository<Object: RealmSwift.Object>: Repository {
         }
     }
 
-    public func create(_ models: [Model], cascading: Bool, completion: (RepositoryEditResult<[Model]>) -> Void) {
+    public func create(_ models: [Model], _ completion: (RepositoryEditResult<[Model]>) -> Void) {
         do {
             try realm.write {
-                realm.add(models, cascading: cascading)
+                realm.add(models, cascade: isIdentifiable())
             }
             completion(.success(models))
         } catch {
@@ -62,7 +62,7 @@ public class RealmRepository<Object: RealmSwift.Object>: Repository {
         }
     }
 
-    public func update(_ model: Model, cascading: Bool, completion: (RepositoryEditResult<Model>) -> Void) {
+    public func update(_ model: Model, _ completion: (RepositoryEditResult<Model>) -> Void) {
         guard let primaryKey = Model.self.primaryKey(),
             let id = model.value(forKey: primaryKey),
             realm.object(ofType: Model.self, forPrimaryKey: id) == nil else {
@@ -72,7 +72,7 @@ public class RealmRepository<Object: RealmSwift.Object>: Repository {
 
         do {
             try realm.write {
-                realm.add(model, cascading: cascading)
+                realm.add(model, cascade: isIdentifiable())
             }
             completion(.success(model))
         } catch {
@@ -80,10 +80,10 @@ public class RealmRepository<Object: RealmSwift.Object>: Repository {
         }
     }
 
-    public func delete(_ model: Model, cascading: Bool = false, completion: (Error?) -> Void) {
+    public func delete(_ model: Model, _ completion: (Error?) -> Void) {
         do {
             try realm.write {
-                realm.delete(model, cascading: cascading)
+                realm.delete(model, cascade: isIdentifiable())
             }
             completion(nil)
         } catch {
@@ -91,11 +91,11 @@ public class RealmRepository<Object: RealmSwift.Object>: Repository {
         }
     }
 
-    public func deleteAll(cascading: Bool = false, _ completion: (Error?) -> Void) {
+    public func deleteAll(_ completion: (Error?) -> Void) {
         let allObjects = realm.objects(Model.self)
         do {
             try realm.write {
-                realm.delete(allObjects, cascading: cascading)
+                realm.delete(allObjects, cascade: isIdentifiable())
             }
             completion(nil)
         } catch {
@@ -119,6 +119,10 @@ public class RealmRepository<Object: RealmSwift.Object>: Repository {
         } else {
             return unrwappedArgs
         }
+    }
+
+    private func isIdentifiable() -> Bool {
+        return Model.primaryKey() != nil
     }
 
 }
