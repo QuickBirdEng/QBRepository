@@ -43,7 +43,7 @@ public class RealmRepository<Object: RealmSwift.Object>: Repository {
     public func create(_ model: Model, _ completion: (RepositoryEditResult<Model>) -> Void) {
         do {
             try realm.write {
-                realm.add(model, cascade: isIdentifiable())
+                realm.add(model, cascade: true, update: isIdentifiable())
             }
             completion(.success(model))
         } catch {
@@ -54,7 +54,7 @@ public class RealmRepository<Object: RealmSwift.Object>: Repository {
     public func create(_ models: [Model], _ completion: (RepositoryEditResult<[Model]>) -> Void) {
         do {
             try realm.write {
-                realm.add(models, cascade: isIdentifiable())
+                realm.add(models, cascade: true, update: isIdentifiable())
             }
             completion(.success(models))
         } catch {
@@ -72,7 +72,7 @@ public class RealmRepository<Object: RealmSwift.Object>: Repository {
 
         do {
             try realm.write {
-                realm.add(model, cascade: isIdentifiable())
+                realm.add(model, cascade: true, update: isIdentifiable())
             }
             completion(.success(model))
         } catch {
@@ -83,7 +83,7 @@ public class RealmRepository<Object: RealmSwift.Object>: Repository {
     public func delete(_ model: Model, _ completion: (Error?) -> Void) {
         do {
             try realm.write {
-                realm.delete(model, cascade: isIdentifiable())
+                realm.delete(model, cascade: true)
             }
             completion(nil)
         } catch {
@@ -95,7 +95,7 @@ public class RealmRepository<Object: RealmSwift.Object>: Repository {
         let allObjects = realm.objects(Model.self)
         do {
             try realm.write {
-                realm.delete(allObjects, cascade: isIdentifiable())
+                realm.delete(allObjects, cascade: true)
             }
             completion(nil)
         } catch {

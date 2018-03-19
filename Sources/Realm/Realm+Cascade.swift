@@ -14,8 +14,8 @@ protocol CascadeDeleting: class {
     func delete<S: Sequence>(_ objects: S, cascade: Bool) where S.Iterator.Element: Object
     func delete<Entity: Object>(_ entity: Entity, cascade: Bool)
 
-    func add<S: Sequence>(_ objects: S, cascade: Bool) where S.Iterator.Element: Object
-    func add<Entity: Object>(_ entity: Entity, cascade: Bool)
+    func add<S: Sequence>(_ objects: S, cascade: Bool, update: Bool) where S.Iterator.Element: Object
+    func add<Entity: Object>(_ entity: Entity, cascade: Bool, update: Bool)
 }
 
 extension Realm: CascadeDeleting {
@@ -34,18 +34,18 @@ extension Realm: CascadeDeleting {
         }
     }
 
-    func add<S: Sequence>(_ objects: S, cascade: Bool) where S.Iterator.Element: Object {
+    func add<S: Sequence>(_ objects: S, cascade: Bool, update: Bool) where S.Iterator.Element: Object {
         for object in objects {
-            add(object, cascade: cascade)
+            add(object, cascade: cascade, update: update)
         }
     }
 
-    func add<Entity: Object>(_ entity: Entity, cascade: Bool) {
+    func add<Entity: Object>(_ entity: Entity, cascade: Bool, update: Bool) {
         if cascade {
             cascadeDeleteSubtypes(entity)
         }
 
-        add(entity, update: true)
+        add(entity, update: update)
     }
 
 }
