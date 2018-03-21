@@ -19,6 +19,7 @@ public final class AnyRepository<Model>: Repository {
     private let _update: (Model, (RepositoryEditResult<Model>) -> Void) -> Void
     private let _delete: (Model, (Error?) -> Void) -> Void
     private let _deleteAll: ((Error?) -> Void) -> Void
+    private let _performTranscation: (() -> Void) -> Void
 
     public init<A: Repository>(_ repository: A) where A.Model == Model {
         _getAll = repository.getAll
@@ -30,6 +31,7 @@ public final class AnyRepository<Model>: Repository {
         _update = repository.update
         _delete = repository.delete
         _deleteAll = repository.deleteAll
+        _performTranscation = repository.performTranscation
     }
 
     public func getAll(_ completion: (AnyCollection<Model>) -> Void) {
@@ -69,5 +71,10 @@ public final class AnyRepository<Model>: Repository {
     public func deleteAll(_ completion: (Error?) -> Void) {
         _deleteAll(completion)
     }
+
+    public func performTranscation(_ transaction: () -> Void) {
+        _performTranscation(transaction)
+    }
+
 
 }

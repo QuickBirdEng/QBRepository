@@ -25,4 +25,5 @@ public protocol Repository {
     func update(_ model: Model, _ completion: (RepositoryEditResult<Model>) -> Void)
     func delete(_ model: Model, _ completion: (Error?) -> Void)
     func deleteAll(_ completion: (Error?) -> Void)
+    func performTranscation(_ transaction: () -> Void)
 }

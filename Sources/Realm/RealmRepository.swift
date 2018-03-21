@@ -108,6 +108,12 @@ public class RealmRepository<Object: RealmSwift.Object>: Repository {
         }
     }
 
+    public func performTranscation(_ transaction: () -> Void) {
+        try? realm.write {
+            transaction()
+        }
+    }
+
     // MARK: Helper
 
     private func unwrapArgs(_ args: [Any]) -> [Any] {
