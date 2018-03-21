@@ -78,7 +78,7 @@ private extension Realm {
 
     private func resolve(element: Object, deleteMainItem: Bool, toBeDeleted: inout Set<RLMObjectBase>) {
         for property in element.objectSchema.properties {
-            guard let value = element.value(forKey: property.name) else { return }
+            guard let value = element.value(forKey: property.name) else { continue }
 
             if let entity = value as? RLMObjectBase {
                 toBeDeleted.insert(entity)
