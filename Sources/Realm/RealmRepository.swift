@@ -28,9 +28,14 @@ public class RealmRepository<Object: RealmSwift.Object>: Repository {
         completion(AnyCollection(allObjects))
     }
 
-    public func getElements(fileredBy predicateFormat: String, _ args: Any..., completion: (AnyCollection<Model>) -> Void) {
+    public func getElements(filteredBy predicateFormat: String, _ args: Any..., completion: (AnyCollection<Model>) -> Void) {
         let unrwappedArgs = unwrapArgs(args)
         let predicate = NSPredicate(format: predicateFormat, argumentArray: unrwappedArgs)
+        let objects = realm.objects(Model.self).filter(predicate)
+        completion(AnyCollection(objects))
+    }
+
+    public func getElements(filteredBy predicate: NSPredicate, completion: (AnyCollection<Model>) -> Void) {
         let objects = realm.objects(Model.self).filter(predicate)
         completion(AnyCollection(objects))
     }

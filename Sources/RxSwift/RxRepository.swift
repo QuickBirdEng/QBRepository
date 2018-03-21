@@ -35,9 +35,19 @@ public class RxRepository<Model> {
         }
     }
 
-    public func getElements(fileredBy predicateFormat: String, _ args: Any...) -> Single<AnyCollection<Model>> {
+    public func getElements(filteredBy predicateFormat: String, _ args: Any...) -> Single<AnyCollection<Model>> {
         return Single.create { single -> Disposable in
-            self.base.getElements(fileredBy: predicateFormat, args) { models in
+            self.base.getElements(filteredBy: predicateFormat, args) { models in
+                single(.success(models))
+            }
+
+            return Disposables.create()
+        }
+    }
+
+    public func getElements(filteredBy predicate: NSPredicate) -> Single<AnyCollection<Model>> {
+        return Single.create { single -> Disposable in
+            self.base.getElements(filteredBy: predicate) { models in
                 single(.success(models))
             }
 

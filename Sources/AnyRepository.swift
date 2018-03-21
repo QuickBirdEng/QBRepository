@@ -13,6 +13,7 @@ public final class AnyRepository<Model>: Repository {
     private let _getAll: ((AnyCollection<Model>) -> Void) -> Void
     private let _getElement: (Any, (Model?) -> Void) -> Void
     private let _getElements: (String, Any..., (AnyCollection<Model>) -> Void) -> Void
+    private let _getElementsPredicate: (NSPredicate, (AnyCollection<Model>) -> Void) -> Void
     private let _create: (Model, (RepositoryEditResult<Model>) -> Void) -> Void
     private let _createMultiple: ([Model], (RepositoryEditResult<[Model]>) -> Void) -> Void
     private let _update: (Model, (RepositoryEditResult<Model>) -> Void) -> Void
@@ -23,6 +24,7 @@ public final class AnyRepository<Model>: Repository {
         _getAll = repository.getAll
         _getElement = repository.getElement
         _getElements = repository.getElements
+        _getElementsPredicate = repository.getElements(filteredBy:completion:)
         _create = repository.create
         _createMultiple = repository.create
         _update = repository.update
@@ -34,10 +36,14 @@ public final class AnyRepository<Model>: Repository {
         _getAll(completion)
     }
 
-    public func getElements(fileredBy predicateFormat: String, _ args: Any..., completion: (AnyCollection<Model>) -> Void) {
+    public func getElements(filteredBy predicateFormat: String, _ args: Any..., completion: (AnyCollection<Model>) -> Void) {
         _getElements(predicateFormat, args) { results in
             completion(results)
         }
+    }
+
+    public func getElements(filteredBy predicate: NSPredicate, completion: (AnyCollection<Model>) -> Void) {
+        _getElementsPredicate(predicate, completion)
     }
 
     public func getElement<Id>(withId id: Id, _ completion: (Model?) -> Void) {

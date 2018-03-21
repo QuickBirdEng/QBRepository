@@ -17,7 +17,8 @@ public protocol Repository {
     associatedtype Model
 
     func getAll(_ completion: (AnyCollection<Model>) -> Void)
-    func getElements(fileredBy predicateFormat: String, _ args: Any..., completion: (AnyCollection<Model>) -> Void)
+    func getElements(filteredBy predicateFormat: String, _ args: Any..., completion: (AnyCollection<Model>) -> Void)
+    func getElements(filteredBy predicate: NSPredicate, completion: (AnyCollection<Model>) -> Void)
     func getElement<Id>(withId id: Id, _ completion: (Model?) -> Void)
     func create(_ model: Model, _ completion: (RepositoryEditResult<Model>) -> Void)
     func create(_ models: [Model], _ completion: (RepositoryEditResult<[Model]>) -> Void)
