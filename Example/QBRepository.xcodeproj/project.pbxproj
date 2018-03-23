@@ -133,9 +133,8 @@
 				TargetAttributes = {
 					607FACE41AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
-						DevelopmentTeam = 77E79NGPCV;
+						DevelopmentTeam = Q93LG7BKSP;
 						LastSwiftMigration = 0900;
-						TestTargetID = 607FACCF1AFB9204008FA782;
 					};
 				};
 			};
@@ -342,7 +341,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 639D84E3F3CC6D2BD355FB90 /* Pods-QBRepository_Tests.debug.xcconfig */;
 			buildSettings = {
-				DEVELOPMENT_TEAM = 77E79NGPCV;
+				DEVELOPMENT_TEAM = Q93LG7BKSP;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -364,7 +363,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 352B5427F7824639637F5F98 /* Pods-QBRepository_Tests.release.xcconfig */;
 			buildSettings = {
-				DEVELOPMENT_TEAM = 77E79NGPCV;
+				DEVELOPMENT_TEAM = Q93LG7BKSP;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
