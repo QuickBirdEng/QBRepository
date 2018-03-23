@@ -14,6 +14,7 @@ public enum RealmError: Error {
 }
 
 public class RealmRepository<Object: RealmSwift.Object>: Repository {
+
     public typealias Model = Object
 
     private let realm: Realm
@@ -43,6 +44,11 @@ public class RealmRepository<Object: RealmSwift.Object>: Repository {
     public func getElement<Id>(withId id: Id, _ completion: (Model?) -> Void) {
         let object = realm.object(ofType: Model.self, forPrimaryKey: id)
         completion(object)
+    }
+
+    public func getElements(sorted keyPath: String, ascending: Bool, completion: (AnyCollection<Object>) -> Void) {
+        let objects = realm.objects(Model.self).sorted(byKeyPath: keyPath, ascending: ascending)
+        completion(AnyCollection(objects))
     }
 
     public func create(_ model: Model, _ completion: (RepositoryEditResult<Model>) -> Void) {

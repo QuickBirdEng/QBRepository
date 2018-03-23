@@ -20,6 +20,7 @@ public protocol Repository {
     func getElements(filteredBy predicateFormat: String, _ args: Any..., completion: (AnyCollection<Model>) -> Void)
     func getElements(filteredBy predicate: NSPredicate, completion: (AnyCollection<Model>) -> Void)
     func getElement<Id>(withId id: Id, _ completion: (Model?) -> Void)
+    func getElements(sorted keyPath: String, ascending: Bool, completion: (AnyCollection<Model>) -> Void)
     func create(_ model: Model, _ completion: (RepositoryEditResult<Model>) -> Void)
     func create(_ models: [Model], _ completion: (RepositoryEditResult<[Model]>) -> Void)
     func update(_ model: Model, _ completion: (RepositoryEditResult<Model>) -> Void)
