@@ -31,59 +31,82 @@ class RealmRepositoryTests: XCTestCase {
         addRandomMockObjects(repo: repository)
 
         var deletionError: Error?
-        repository?.deleteAll({ error in
+        repository?.deleteAll() { error in
             deletionError = error
-        })
+        }
 
-        repository?.getAll({ allObjects in
+        repository?.getAll() { allObjects in
             XCTAssert(allObjects.isEmpty && deletionError == nil)
-        })
+        }
     }
 
     func testFilter(){
 
-        repository?.create(QuickEmployee(name: "Torsten", age: 19, data: Data()), { _ in })
-        repository?.create(QuickEmployee(name: "Torben", age: 21, data: Data()), { _ in })
-        repository?.create(QuickEmployee(name: "Tim", age: 87, data: Data()), { _ in })
-        repository?.create(QuickEmployee(name: "Struppi", age: 3, data: Data()), { _ in })
+        repository?.create(QuickEmployee(name: "Torsten", age: 19, data: Data())) { _ in }
+        repository?.create(QuickEmployee(name: "Torben", age: 21, data: Data())) { _ in }
+        repository?.create(QuickEmployee(name: "Tim", age: 87, data: Data())) { _ in }
+        repository?.create(QuickEmployee(name: "Struppi", age: 3, data: Data())) { _ in }
 
         let newEmployeeName = "Zementha"
-        repository?.create(QuickEmployee(name: newEmployeeName, age: 34, data: Data()), { _ in })
+        repository?.create(QuickEmployee(name: newEmployeeName, age: 34, data: Data())) { _ in }
 
-        repository?.getElements(filteredBy: "name = %@", newEmployeeName, completion: { (filteredEmployees) in
+        repository?.getElements(filteredBy: "name = %@", newEmployeeName) { filteredEmployees in
             guard let firstEmployee = filteredEmployees.first else { return }
 
             let correctEmployee = firstEmployee.name == newEmployeeName
             let containsOneEmployee = filteredEmployees.count == 1
 
             XCTAssert(correctEmployee && containsOneEmployee)
-        })
+        }
     }
 
 
-    func testSorting(){
+    func testSortingAscending(){
 
         let tim = QuickEmployee(name: "Tim", age: 87, data: Data())
-        repository?.create(tim, { _ in })
+        repository?.create(tim) { _ in }
 
         let struppi = QuickEmployee(name: "Struppi", age: 3, data: Data())
-        repository?.create(struppi, { _ in })
+        repository?.create(struppi) { _ in }
 
         let torsten = QuickEmployee(name: "Torsten", age: 19, data: Data())
-        repository?.create(torsten, { _ in })
+        repository?.create(torsten) { _ in }
 
         let torben = QuickEmployee(name: "Torben", age: 21, data: Data())
-        repository?.create(torben, { _ in })
+        repository?.create(torben) { _ in }
 
-        repository?.getElements(sorted: \QuickEmployee.age, ascending: false, completion: { (filteredEmployees) in
+        repository?.getElements(sortedBy: \QuickEmployee.age){ filteredEmployees in
             let filteredArray = Array(filteredEmployees)
 
             guard let firstEmployee = filteredArray.first else { return }
             guard let lastEmployee = filteredArray.last else { return }
 
             XCTAssert(firstEmployee.age == struppi.age && lastEmployee.age == tim.age)
-        })
+        }
+    }
 
+    func testSortingDescending(){
+
+        let tim = QuickEmployee(name: "Tim", age: 87, data: Data())
+        repository?.create(tim) { _ in }
+
+        let struppi = QuickEmployee(name: "Struppi", age: 3, data: Data())
+        repository?.create(struppi) { _ in }
+
+        let torsten = QuickEmployee(name: "Torsten", age: 19, data: Data())
+        repository?.create(torsten) { _ in }
+
+        let torben = QuickEmployee(name: "Torben", age: 21, data: Data())
+        repository?.create(torben) { _ in }
+
+        repository?.getElements(sortedBy: \QuickEmployee.age,ascending: false) { filteredEmployees in
+            let filteredArray = Array(filteredEmployees)
+
+            guard let firstEmployee = filteredArray.first else { return }
+            guard let lastEmployee = filteredArray.last else { return }
+
+            XCTAssert(firstEmployee.age == tim.age && lastEmployee.age == struppi.age)
+        }
     }
 
     // MARK: Helper Methods
@@ -97,7 +120,6 @@ class RealmRepositoryTests: XCTestCase {
     }
 
 }
-
 
 class QuickEmployee: Object {
     @objc dynamic var name: String = ""
