@@ -19,7 +19,7 @@ class RealmRepositoryTests: XCTestCase {
     }
     
     func testGetAll() {
-        addRandomeMockObjects(repo: repository)
+        addRandomMockObjects(repo: repository)
 
         repository?.getAll({ (allObjects) in
             XCTAssert(allObjects.count == 4)
@@ -28,7 +28,7 @@ class RealmRepositoryTests: XCTestCase {
 
 
     func testDeleteAll() {
-        addRandomeMockObjects(repo: repository)
+        addRandomMockObjects(repo: repository)
 
         var deletionError: Error?
         repository?.deleteAll({ error in
@@ -88,7 +88,7 @@ class RealmRepositoryTests: XCTestCase {
 
     // MARK: Helper Methods
 
-    func addRandomeMockObjects(repo: RealmRepository<QuickEmployee>?){
+    func addRandomMockObjects(repo: RealmRepository<QuickEmployee>?){
         repo?.create(QuickEmployee(name: "Quirin", age: -1, data: Data()), { _ in })
         repo?.create(QuickEmployee(name: "Stefan", age: -1, data: Data()), { _ in })
         repo?.create(QuickEmployee(name: "Sebi", age: 22, data: Data()), { _ in })
