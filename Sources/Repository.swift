@@ -13,19 +13,55 @@ public enum RepositoryEditResult<Model> {
     case error(Error)
 }
 
+public enum RepositoryFilter {
+    case predicate(NSPredicate)
+    case string(String, [Any])
+
+    static func predicateString(predicateFormat: String, _ args: Any...) -> RepositoryFilter {
+        return .string(predicateFormat, unwrapArgs(args))
+    }
+
+    private static func unwrapArgs(_ args: [Any]) -> [Any] {
+        let unrwappedArgs = args.flatMap { arg -> [Any] in
+            if let arg = arg as? [Any] {
+                return arg
+            } else {
+                return [arg]
+            }
+        }
+
+        if unrwappedArgs.contains(where: { $0 is [Any] }) {
+            return self.unwrapArgs(unrwappedArgs)
+        } else {
+            return unrwappedArgs
+        }
+    }
+}
+
+public enum RepositorySortMode<Model> {
+    case stringKeyPath(String)
+    case keyPath(PartialKeyPath<Model>)
+}
+
 public protocol Repository {
     associatedtype Model
 
-    func getAll(_ completion: (AnyCollection<Model>) -> Void)
-    func getElements(filteredBy predicateFormat: String, _ args: Any..., completion: (AnyCollection<Model>) -> Void)
-    func getElements(filteredBy predicate: NSPredicate, completion: (AnyCollection<Model>) -> Void)
-    func getElement<Id>(withId id: Id, _ completion: (Model?) -> Void)
-    func getElements(sortedBy keyPath: String, ascending: Bool, completion: (AnyCollection<Model>) -> Void)
-    func getElements(sortedBy keyPath: PartialKeyPath<Model>, ascending: Bool, completion: (AnyCollection<Model>) -> Void)
-    func create(_ model: Model, _ completion: (RepositoryEditResult<Model>) -> Void)
-    func create(_ models: [Model], _ completion: (RepositoryEditResult<[Model]>) -> Void)
-    func update(_ model: Model, _ completion: (RepositoryEditResult<Model>) -> Void)
-    func delete(_ model: Model, _ completion: (Error?) -> Void)
-    func deleteAll(_ completion: (Error?) -> Void)
-    func performTranscation(_ transaction: () -> Void)
+    func getAll() -> AnyRandomAccessCollection<Model>
+    func getElement<Id>(withId id: Id) -> Model?
+    func getElements(filteredBy filter: RepositoryFilter?, sortedBy sortMode: RepositorySortMode<Model>?) -> AnyRandomAccessCollection<Model>
+    @discardableResult func create(_ model: Model) -> RepositoryEditResult<Model>
+    @discardableResult func create(_ models: [Model]) -> RepositoryEditResult<[Model]>
+    @discardableResult func update(_ model: Model) -> RepositoryEditResult<Model>
+    @discardableResult func delete(_ model: Model) -> Error?
+    @discardableResult func delete(_ models: [Model]) -> Error?
+    @discardableResult func deleteAll() -> Error?
+    @discardableResult func performTranscation(_ transaction: () -> Void) -> Error?
+}
+
+public extension Repository {
+
+    func getElements(filteredBy filter: RepositoryFilter? = nil, sortedBy sortMode: RepositorySortMode<Model>? = nil) -> AnyRandomAccessCollection<Model> {
+        return getElements(filteredBy: filter, sortedBy: sortMode)
+    }
+
 }

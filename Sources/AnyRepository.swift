@@ -10,82 +10,68 @@ import Foundation
 
 public final class AnyRepository<Model>: Repository {
 
-    private let _getAll: ((AnyCollection<Model>) -> Void) -> Void
-    private let _getElement: (Any, (Model?) -> Void) -> Void
-    private let _getElements: (String, Any..., (AnyCollection<Model>) -> Void) -> Void
-    private let _getElementsSorted: (String, Bool, (AnyCollection<Model>) -> Void) -> Void
-    private let _getElementsSortedWithKeyPath: (PartialKeyPath<Model>, Bool, (AnyCollection<Model>) -> Void) -> Void
-    private let _getElementsPredicate: (NSPredicate, (AnyCollection<Model>) -> Void) -> Void
-    private let _create: (Model, (RepositoryEditResult<Model>) -> Void) -> Void
-    private let _createMultiple: ([Model], (RepositoryEditResult<[Model]>) -> Void) -> Void
-    private let _update: (Model, (RepositoryEditResult<Model>) -> Void) -> Void
-    private let _delete: (Model, (Error?) -> Void) -> Void
-    private let _deleteAll: ((Error?) -> Void) -> Void
-    private let _performTranscation: (() -> Void) -> Void
+    private let _getAll: () -> AnyRandomAccessCollection<Model>
+    private let _getElement: (Any) -> Model?
+    private let _getElements: (RepositoryFilter?, RepositorySortMode<Model>?) -> AnyRandomAccessCollection<Model>
+    private let _create: (Model) -> RepositoryEditResult<Model>
+    private let _createMultiple: ([Model]) -> RepositoryEditResult<[Model]>
+    private let _update: (Model) -> RepositoryEditResult<Model>
+    private let _delete: (Model) -> Error?
+    private let _deleteMultiple: ([Model]) -> Error?
+    private let _deleteAll: () -> Error?
+    private let _performTranscation: (() -> Void) -> Error?
 
     public init<A: Repository>(_ repository: A) where A.Model == Model {
         _getAll = repository.getAll
         _getElement = repository.getElement
         _getElements = repository.getElements
-        _getElementsPredicate = repository.getElements(filteredBy:completion:)
-        _getElementsSorted = repository.getElements(sortedBy: ascending: completion:)
-        _getElementsSortedWithKeyPath = repository.getElements(sortedBy: ascending: completion:)
         _create = repository.create
         _createMultiple = repository.create
         _update = repository.update
         _delete = repository.delete
+        _deleteMultiple = repository.delete
         _deleteAll = repository.deleteAll
         _performTranscation = repository.performTranscation
     }
 
-    public func getAll(_ completion: (AnyCollection<Model>) -> Void) {
-        _getAll(completion)
+    public func getAll() -> AnyRandomAccessCollection<Model> {
+        return _getAll()
     }
 
-    public func getElements(filteredBy predicateFormat: String, _ args: Any..., completion: (AnyCollection<Model>) -> Void) {
-        _getElements(predicateFormat, args) { results in
-            completion(results)
-        }
+    public func getElement<Id>(withId id: Id) -> Model? {
+        return _getElement(id)
     }
 
-    public func getElements(filteredBy predicate: NSPredicate, completion: (AnyCollection<Model>) -> Void) {
-        _getElementsPredicate(predicate, completion)
+    public func getElements(filteredBy filter: RepositoryFilter?, sortedBy sortMode: RepositorySortMode<Model>?) -> AnyRandomAccessCollection<Model> {
+        return _getElements(filter, sortMode)
     }
 
-    public func getElement<Id>(withId id: Id, _ completion: (Model?) -> Void) {
-        _getElement(id, completion)
+    @discardableResult public func create(_ model: Model) -> RepositoryEditResult<Model> {
+        return _create(model)
     }
 
-    public func getElements(sortedBy keyPath: String, ascending: Bool, completion: (AnyCollection<Model>) -> Void) {
-        _getElementsSorted(keyPath, ascending, completion)
+    @discardableResult public func create(_ models: [Model]) -> RepositoryEditResult<[Model]> {
+        return _createMultiple(models)
     }
 
-    public func getElements(sortedBy keyPath: PartialKeyPath<Model>, ascending: Bool, completion: (AnyCollection<Model>) -> Void) {
-        _getElementsSortedWithKeyPath(keyPath, ascending, completion)
+    @discardableResult public func update(_ model: Model) -> RepositoryEditResult<Model> {
+        return _update(model)
     }
 
-    public func create(_ model: Model, _ completion: (RepositoryEditResult<Model>) -> Void) {
-        _create(model, completion)
+    @discardableResult public  func delete(_ model: Model) -> Error? {
+        return _delete(model)
     }
 
-    public func create(_ models: [Model], _ completion: (RepositoryEditResult<[Model]>) -> Void) {
-        _createMultiple(models, completion)
+    @discardableResult public func delete(_ models: [Model]) -> Error? {
+        return _deleteMultiple(models)
     }
 
-    public func update(_ model: Model, _ completion: (RepositoryEditResult<Model>) -> Void) {
-        _update(model, completion)
+    @discardableResult public func deleteAll() -> Error? {
+        return _deleteAll()
     }
 
-    public func delete(_ model: Model, _ completion: (Error?) -> Void) {
-        _delete(model, completion)
-    }
-
-    public func deleteAll(_ completion: (Error?) -> Void) {
-        _deleteAll(completion)
-    }
-
-    public func performTranscation(_ transaction: () -> Void) {
-        _performTranscation(transaction)
+    public func performTranscation(_ transaction: () -> Void) -> Error? {
+        return _performTranscation(transaction)
     }
 
 }
