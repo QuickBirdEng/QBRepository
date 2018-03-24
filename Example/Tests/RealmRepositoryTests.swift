@@ -24,88 +24,55 @@ class RealmRepositoryTests: XCTestCase {
     }
 
     func testGetAll() {
-        var isCalled = false
-
-        repository.getAll { allObjects in
-            isCalled = true
-            XCTAssertEqual(allObjects.underestimatedCount, testEmployees.count)
-        }
-
-        XCTAssert(isCalled)
+        let allObjects = repository.getAll()
+        XCTAssertEqual(allObjects.underestimatedCount, testEmployees.count)
     }
 
 
     func testDeleteAll() {
-        var isCalled = false
+        let deletionError = repository.deleteAll()
+        let allObjects = repository.getAll()
 
-        repository.deleteAll() { deletionError in
-            repository.getAll() { allObjects in
-                isCalled = true
-                XCTAssert(allObjects.isEmpty && deletionError == nil)
-            }
-        }
-
-        XCTAssert(isCalled)
+        XCTAssert(allObjects.isEmpty && deletionError == nil)
     }
 
     func testFilter() {
-        var isCalled = false
-
-        repository.create(QuickEmployee(name: "Torsten", age: 19, data: Data())) { _ in }
-        repository.create(QuickEmployee(name: "Torben", age: 21, data: Data())) { _ in }
-        repository.create(QuickEmployee(name: "Tim", age: 87, data: Data())) { _ in }
-        repository.create(QuickEmployee(name: "Struppi", age: 3, data: Data())) { _ in }
+        repository.create(QuickEmployee(name: "Torsten", age: 19, data: Data()))
+        repository.create(QuickEmployee(name: "Torben", age: 21, data: Data()))
+        repository.create(QuickEmployee(name: "Tim", age: 87, data: Data()))
+        repository.create(QuickEmployee(name: "Struppi", age: 3, data: Data()))
 
         let newEmployeeName = "Zementha"
-        repository.create(QuickEmployee(name: newEmployeeName, age: 34, data: Data())) { _ in }
+        repository.create(QuickEmployee(name: newEmployeeName, age: 34, data: Data()))
 
-        repository.getElements(filteredBy: "name = %@", newEmployeeName) { filteredEmployees in
-            guard let firstEmployee = filteredEmployees.first else { return }
-            isCalled = true
+        let filteredEmployees = repository.getElements(filteredBy: .predicateString("name = %@", newEmployeeName))
+        guard let firstEmployee = filteredEmployees.first else { return }
 
-            XCTAssertEqual(firstEmployee.name, newEmployeeName)
-            XCTAssertEqual(filteredEmployees.count, 1)
-        }
-
-        XCTAssert(isCalled)
+        XCTAssertEqual(firstEmployee.name, newEmployeeName)
+        XCTAssertEqual(filteredEmployees.count, 1)
     }
 
-
     func testSortingAscending() {
-        var isCalled = false
         let stdlibSortedEmployees = testEmployees.sorted(by: { $0.age < $1.age })
+        let filteredEmployees = repository.getElements(sortedBy: .keyPath(\QuickEmployee.age))
 
-        repository.getElements(sortedBy: \QuickEmployee.age) { filteredEmployees in
-            isCalled = true
-            let filteredArray = Array(filteredEmployees)
-
-            XCTAssert(filteredArray.first?.age == stdlibSortedEmployees.first?.age)
-            XCTAssert(filteredArray.last?.age == stdlibSortedEmployees.last?.age)
-        }
-
-        XCTAssert(isCalled)
+        XCTAssert(filteredEmployees.first?.age == stdlibSortedEmployees.first?.age)
+        XCTAssert(filteredEmployees.last?.age == stdlibSortedEmployees.last?.age)
     }
 
     func testSortingDescending() {
-        var isCalled = false
         let stdlibSortedEmployees = testEmployees.sorted(by: { $0.age > $1.age })
+        let filteredEmployees = repository.getElements(sortedBy: .keyPath(\QuickEmployee.age, ascending: false))
 
-        repository.getElements(sortedBy: \QuickEmployee.age, ascending: false) { filteredEmployees in
-            isCalled = true
-            let filteredArray = Array(filteredEmployees)
-
-            XCTAssert(filteredArray.first?.age == stdlibSortedEmployees.first?.age)
-            XCTAssert(filteredArray.last?.age == stdlibSortedEmployees.last?.age)
-        }
-
-        XCTAssert(isCalled)
+        XCTAssert(filteredEmployees.first?.age == stdlibSortedEmployees.first?.age)
+        XCTAssert(filteredEmployees.last?.age == stdlibSortedEmployees.last?.age)
     }
 
     // MARK: Helper Methods
 
     private func addRandomMockObjects(to repository: RealmRepository<QuickEmployee>) {
-        repository.deleteAll { _ in }
-        repository.create(testEmployees) { _ in }
+        repository.deleteAll()
+        repository.create(testEmployees)
     }
 
 }

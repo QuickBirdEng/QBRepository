@@ -48,10 +48,10 @@ public class RealmRepository<Object: RealmSwift.Object>: Repository {
         switch sortMode {
         case .none:
             break
-        case .some(.stringKeyPath(let keyPath)):
-            objects = objects.sorted(byKeyPath: keyPath, ascending: true)
-        case .some(.keyPath(let keyPath)):
-            objects = objects.sorted(byKeyPath: keyPath._kvcKeyPathString! as String, ascending: true)
+        case .some(let .stringKeyPath(keyPath, ascending)):
+            objects = objects.sorted(byKeyPath: keyPath, ascending: ascending)
+        case .some(let .swiftKeyPath(keyPath, ascending)):
+            objects = objects.sorted(byKeyPath: keyPath._kvcKeyPathString! as String, ascending: ascending)
         }
 
         return AnyRandomAccessCollection(objects)

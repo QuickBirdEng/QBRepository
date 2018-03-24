@@ -8,41 +8,6 @@
 
 import Foundation
 
-public enum RepositoryEditResult<Model> {
-    case success(Model)
-    case error(Error)
-}
-
-public enum RepositoryFilter {
-    case predicate(NSPredicate)
-    case string(String, [Any])
-
-    static func predicateString(predicateFormat: String, _ args: Any...) -> RepositoryFilter {
-        return .string(predicateFormat, unwrapArgs(args))
-    }
-
-    private static func unwrapArgs(_ args: [Any]) -> [Any] {
-        let unrwappedArgs = args.flatMap { arg -> [Any] in
-            if let arg = arg as? [Any] {
-                return arg
-            } else {
-                return [arg]
-            }
-        }
-
-        if unrwappedArgs.contains(where: { $0 is [Any] }) {
-            return self.unwrapArgs(unrwappedArgs)
-        } else {
-            return unrwappedArgs
-        }
-    }
-}
-
-public enum RepositorySortMode<Model> {
-    case stringKeyPath(String)
-    case keyPath(PartialKeyPath<Model>)
-}
-
 public protocol Repository {
     associatedtype Model
 
