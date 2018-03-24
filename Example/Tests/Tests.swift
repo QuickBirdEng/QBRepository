@@ -72,9 +72,9 @@ class RealmrepositorysitoryTests: XCTestCase {
         repository.create(employeeArray) { _ in }
 
         repository.getElements(sortedBy: \QuickEmployee.age) { filteredEmployees in
-            let sortedEmployees = employeeArray.sorted(by: { (e1, e2) -> Bool in
+            let sortedEmployees = employeeArray.sorted { e1, e2 -> Bool in
                 return e1.age < e2.age
-            })
+            }
 
             let repositoryEmployees = Array(filteredEmployees)
             guard let firstOrginalEmployee = sortedEmployees.first else { return }
@@ -97,8 +97,8 @@ class RealmrepositorysitoryTests: XCTestCase {
 
         repository.create(employeeArray) { _ in }
 
-        repository.getElements(sortedBy: \QuickEmployee.age,ascending: false) { filteredEmployees in
-            let sortedEmployees = employeeArray.sorted { (e1, e2) -> Bool in
+        repository.getElements(sortedBy: \QuickEmployee.age, ascending: false) { filteredEmployees in
+            let sortedEmployees = employeeArray.sorted { e1, e2 -> Bool in
                 return e1.age > e2.age
             }
 
@@ -118,7 +118,6 @@ class RealmrepositorysitoryTests: XCTestCase {
     // MARK: Helper Methods
 
     func createMockEmployees() -> [QuickEmployee] {
-
         return [QuickEmployee(name: "Quirin", age: -1, data: Data()),
                 QuickEmployee(name: "Stefan", age: -1, data: Data()),
                 QuickEmployee(name: "Sebi", age: 22, data: Data()),
