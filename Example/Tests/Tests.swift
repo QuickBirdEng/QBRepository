@@ -8,6 +8,7 @@ class RealmrepositorysitoryTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
+
         let testRealm = try! Realm(configuration: Realm.Configuration(inMemoryIdentifier: "Test"))
         repository = RealmRepository<QuickEmployee>(realm: testRealm)
     }
@@ -16,6 +17,7 @@ class RealmrepositorysitoryTests: XCTestCase {
         repository.deleteAll { _ in }
         let testRealm = try! Realm(configuration: Realm.Configuration(inMemoryIdentifier: "Test"))
         repository = RealmRepository<QuickEmployee>(realm: testRealm)
+
         super.tearDown()
     }
     
