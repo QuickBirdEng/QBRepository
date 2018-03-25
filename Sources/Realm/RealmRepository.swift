@@ -23,125 +23,125 @@ public class RealmRepository<Object: RealmSwift.Object>: Repository {
         self.realm = realm
     }
 
-    public func getAll(_ completion: (AnyCollection<Model>) -> Void) {
+    public func getAll() -> AnyRandomAccessCollection<Model> {
         let allObjects = realm.objects(Model.self)
-        completion(AnyCollection(allObjects))
+        return AnyRandomAccessCollection(allObjects)
     }
 
-    public func getElements(filteredBy predicateFormat: String, _ args: Any..., completion: (AnyCollection<Model>) -> Void) {
-        let unrwappedArgs = unwrapArgs(args)
-        let predicate = NSPredicate(format: predicateFormat, argumentArray: unrwappedArgs)
-        let objects = realm.objects(Model.self).filter(predicate)
-        completion(AnyCollection(objects))
-    }
-
-    public func getElements(filteredBy predicate: NSPredicate, completion: (AnyCollection<Model>) -> Void) {
-        let objects = realm.objects(Model.self).filter(predicate)
-        completion(AnyCollection(objects))
-    }
-
-    public func getElement<Id>(withId id: Id, _ completion: (Model?) -> Void) {
+    public func getElement<Id>(withId id: Id) -> Model? {
         let object = realm.object(ofType: Model.self, forPrimaryKey: id)
-        completion(object)
+        return object
     }
 
-    public func getElements(sortedBy keyPath: String, ascending: Bool, completion: (AnyCollection<Object>) -> Void) {
-        let objects = realm.objects(Model.self).sorted(byKeyPath: keyPath, ascending: ascending)
-        completion(AnyCollection(objects))
+    public func getElements(filteredBy filter: RepositoryFilter?, sortedBy sortMode: RepositorySortMode<Model>?) -> AnyRandomAccessCollection<Model> {
+        var objects = realm.objects(Model.self)
+
+        switch filter {
+        case .none:
+            break
+        case .some(.predicate(let predicate)):
+            objects = objects.filter(predicate)
+        case .some(let .string(predicateFormat, args)):
+            objects = objects.filter(NSPredicate(format: predicateFormat, argumentArray: args))
+        }
+
+        switch sortMode {
+        case .none:
+            break
+        case .some(let .stringKeyPath(keyPath, ascending)):
+            objects = objects.sorted(byKeyPath: keyPath, ascending: ascending)
+        case .some(let .swiftKeyPath(keyPath, ascending)):
+            objects = objects.sorted(byKeyPath: keyPath._kvcKeyPathString! as String, ascending: ascending)
+        }
+
+        return AnyRandomAccessCollection(objects)
     }
 
-    public func getElements(sortedBy keyPath: PartialKeyPath<Object>, ascending: Bool = true, completion: (AnyCollection<Object>) -> Void) {
-        let keyPathString = keyPath._kvcKeyPathString! as String
-        let objects = realm.objects(Model.self).sorted(byKeyPath: keyPathString, ascending: ascending)
-        completion(AnyCollection(objects))
-    }
-
-    public func create(_ model: Model, _ completion: (RepositoryEditResult<Model>) -> Void) {
+    @discardableResult public func create(_ model: Model) -> RepositoryEditResult<Model> {
         do {
             try realm.write {
                 realm.add(model, cascade: true, update: isIdentifiable())
             }
-            completion(.success(model))
+            return .success(model)
         } catch {
-            completion(.error(error))
+            return .error(error)
         }
     }
 
-    public func create(_ models: [Model], _ completion: (RepositoryEditResult<[Model]>) -> Void) {
+    @discardableResult public func create(_ models: [Model]) -> RepositoryEditResult<[Model]> {
         do {
             try realm.write {
                 realm.add(models, cascade: true, update: isIdentifiable())
             }
-            completion(.success(models))
+            return .success(models)
         } catch {
-            completion(.error(error))
+            return .error(error)
         }
     }
 
-    public func update(_ model: Model, _ completion: (RepositoryEditResult<Model>) -> Void) {
+    @discardableResult public func update(_ model: Model) -> RepositoryEditResult<Model> {
         guard let primaryKey = Model.self.primaryKey(),
             let id = model.value(forKey: primaryKey),
             realm.object(ofType: Model.self, forPrimaryKey: id) == nil else {
-                completion(.error(RealmError.noOriginalObject))
-                return
+                return .error(RealmError.noOriginalObject)
         }
 
         do {
             try realm.write {
                 realm.add(model, cascade: true, update: isIdentifiable())
             }
-            completion(.success(model))
+            return .success(model)
         } catch {
-            completion(.error(error))
+            return .error(error)
         }
     }
 
-    public func delete(_ model: Model, _ completion: (Error?) -> Void) {
+    @discardableResult public func delete(_ model: Model) -> Error? {
         do {
             try realm.write {
                 realm.delete(model, cascade: true)
             }
-            completion(nil)
+            return nil
         } catch {
-            completion(error)
+            return error
         }
     }
 
-    public func deleteAll(_ completion: (Error?) -> Void) {
+    @discardableResult public func delete(_ models: [Model]) -> Error? {
+        do {
+            try realm.write {
+                realm.delete(models, cascade: true)
+            }
+            return nil
+        } catch {
+            return error
+        }
+    }
+
+    @discardableResult public func deleteAll() -> Error? {
         let allObjects = realm.objects(Model.self)
         do {
             try realm.write {
                 realm.delete(allObjects, cascade: true)
             }
-            completion(nil)
+            return nil
         } catch {
-            completion(error)
+            return error
         }
     }
 
-    public func performTranscation(_ transaction: () -> Void) {
-        try? realm.write {
-            transaction()
+    @discardableResult public func performTranscation(_ transaction: () -> Void) -> Error? {
+        do {
+            try realm.write {
+                transaction()
+            }
+            return nil
+        } catch {
+            return error
         }
     }
 
     // MARK: Helper
-
-    private func unwrapArgs(_ args: [Any]) -> [Any] {
-        let unrwappedArgs = args.flatMap { arg -> [Any] in
-            if let arg = arg as? [Any] {
-                return arg
-            } else {
-                return [arg]
-            }
-        }
-
-        if unrwappedArgs.contains(where: { $0 is [Any] }) {
-            return self.unwrapArgs(unrwappedArgs)
-        } else {
-            return unrwappedArgs
-        }
-    }
 
     private func isIdentifiable() -> Bool {
         return Model.primaryKey() != nil
