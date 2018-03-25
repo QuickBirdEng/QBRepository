@@ -22,7 +22,7 @@ pod 'QBRepository'
 
 ## Author
 
-grafele, stefan.kofler@quickbirdstudios.com
+Stefan Kofler, stefan.kofler@quickbirdstudios.com
 
 ## License
 
