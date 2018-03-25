@@ -13,6 +13,8 @@ public final class AnyRepository<Model>: Repository {
     private let _getAll: ((AnyCollection<Model>) -> Void) -> Void
     private let _getElement: (Any, (Model?) -> Void) -> Void
     private let _getElements: (String, Any..., (AnyCollection<Model>) -> Void) -> Void
+    private let _getElementsSorted: (String, Bool, (AnyCollection<Model>) -> Void) -> Void
+    private let _getElementsSortedWithKeyPath: (PartialKeyPath<Model>, Bool, (AnyCollection<Model>) -> Void) -> Void
     private let _getElementsPredicate: (NSPredicate, (AnyCollection<Model>) -> Void) -> Void
     private let _create: (Model, (RepositoryEditResult<Model>) -> Void) -> Void
     private let _createMultiple: ([Model], (RepositoryEditResult<[Model]>) -> Void) -> Void
@@ -26,6 +28,8 @@ public final class AnyRepository<Model>: Repository {
         _getElement = repository.getElement
         _getElements = repository.getElements
         _getElementsPredicate = repository.getElements(filteredBy:completion:)
+        _getElementsSorted = repository.getElements(sortedBy: ascending: completion:)
+        _getElementsSortedWithKeyPath = repository.getElements(sortedBy: ascending: completion:)
         _create = repository.create
         _createMultiple = repository.create
         _update = repository.update
@@ -52,6 +56,14 @@ public final class AnyRepository<Model>: Repository {
         _getElement(id, completion)
     }
 
+    public func getElements(sortedBy keyPath: String, ascending: Bool, completion: (AnyCollection<Model>) -> Void) {
+        _getElementsSorted(keyPath, ascending, completion)
+    }
+
+    public func getElements(sortedBy keyPath: PartialKeyPath<Model>, ascending: Bool, completion: (AnyCollection<Model>) -> Void) {
+        _getElementsSortedWithKeyPath(keyPath, ascending, completion)
+    }
+
     public func create(_ model: Model, _ completion: (RepositoryEditResult<Model>) -> Void) {
         _create(model, completion)
     }
@@ -75,6 +87,5 @@ public final class AnyRepository<Model>: Repository {
     public func performTranscation(_ transaction: () -> Void) {
         _performTranscation(transaction)
     }
-
 
 }

@@ -45,6 +45,17 @@ public class RealmRepository<Object: RealmSwift.Object>: Repository {
         completion(object)
     }
 
+    public func getElements(sortedBy keyPath: String, ascending: Bool, completion: (AnyCollection<Object>) -> Void) {
+        let objects = realm.objects(Model.self).sorted(byKeyPath: keyPath, ascending: ascending)
+        completion(AnyCollection(objects))
+    }
+
+    public func getElements(sortedBy keyPath: PartialKeyPath<Object>, ascending: Bool = true, completion: (AnyCollection<Object>) -> Void) {
+        let keyPathString = keyPath._kvcKeyPathString! as String
+        let objects = realm.objects(Model.self).sorted(byKeyPath: keyPathString, ascending: ascending)
+        completion(AnyCollection(objects))
+    }
+
     public func create(_ model: Model, _ completion: (RepositoryEditResult<Model>) -> Void) {
         do {
             try realm.write {
