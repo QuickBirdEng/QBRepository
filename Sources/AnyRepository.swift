@@ -13,7 +13,7 @@ public final class AnyRepository<Model>: Repository {
     private let _getAll: ((AnyCollection<Model>) -> Void) -> Void
     private let _getElement: (Any, (Model?) -> Void) -> Void
     private let _getElements: (String, Any..., (AnyCollection<Model>) -> Void) -> Void
-    private let _getElementsSorted: (String, Bool,(AnyCollection<Model>) -> Void) -> Void
+    private let _getElementsSorted: (String, Bool, (AnyCollection<Model>) -> Void) -> Void
     private let _getElementsSortedWithKeyPath: (PartialKeyPath<Model>, Bool, (AnyCollection<Model>) -> Void) -> Void
     private let _getElementsPredicate: (NSPredicate, (AnyCollection<Model>) -> Void) -> Void
     private let _create: (Model, (RepositoryEditResult<Model>) -> Void) -> Void
@@ -87,6 +87,5 @@ public final class AnyRepository<Model>: Repository {
     public func performTranscation(_ transaction: () -> Void) {
         _performTranscation(transaction)
     }
-
 
 }

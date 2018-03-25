@@ -15,8 +15,6 @@ class RealmrepositorysitoryTests: XCTestCase {
     
     override func tearDown() {
         repository.deleteAll { _ in }
-        let testRealm = try! Realm(configuration: Realm.Configuration(inMemoryIdentifier: "Test"))
-        repository = RealmRepository<QuickEmployee>(realm: testRealm)
 
         super.tearDown()
     }
@@ -24,7 +22,7 @@ class RealmrepositorysitoryTests: XCTestCase {
     func testGetAll() {
         let testEmployees = createMockEmployees()
         repository.create(testEmployees) { _ in }
-        repository.getAll{ (allObjects) in
+        repository.getAll { allObjects in
             XCTAssert(allObjects.count == testEmployees.count)
         }
     }
@@ -40,11 +38,12 @@ class RealmrepositorysitoryTests: XCTestCase {
         }
 
         repository.getAll() { allObjects in
-            XCTAssert(allObjects.isEmpty && deletionError == nil)
+            XCTAssert(allObjects.isEmpty)
+            XCTAssert(deletionError == nil)
         }
     }
 
-    func testFilter(){
+    func testFilter() {
         repository.create(QuickEmployee(name: "Torsten", age: 19, data: Data())) { _ in }
         repository.create(QuickEmployee(name: "Torben", age: 21, data: Data())) { _ in }
         repository.create(QuickEmployee(name: "Tim", age: 87, data: Data())) { _ in }
@@ -59,12 +58,13 @@ class RealmrepositorysitoryTests: XCTestCase {
             let correctEmployee = firstEmployee.name == newEmployeeName
             let containsOneEmployee = filteredEmployees.count == 1
 
-            XCTAssert(correctEmployee && containsOneEmployee)
+            XCTAssert(correctEmployee)
+            XCTAssert(containsOneEmployee)
         }
     }
 
 
-    func testSortingAscending(){
+    func testSortingAscending() {
         let tim = QuickEmployee(name: "Tim", age: 87, data: Data())
         let struppi = QuickEmployee(name: "Struppi", age: 3, data: Data())
         let torsten = QuickEmployee(name: "Torsten", age: 19, data: Data())
@@ -112,8 +112,8 @@ class RealmrepositorysitoryTests: XCTestCase {
             guard let lastrepositoryEmployee = repositoryEmployees.last else { return }
 
 
-            XCTAssert(firstOrginalEmployee == firstrepositoryEmployee
-                && lastOrginalEmployee == lastrepositoryEmployee)
+            XCTAssert(firstOrginalEmployee == firstrepositoryEmployee)
+            XCTAssert(lastOrginalEmployee == lastrepositoryEmployee)
         }
     }
 
