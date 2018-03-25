@@ -25,7 +25,13 @@ public protocol Repository {
 
 public extension Repository {
 
-    func getElements(filteredBy filter: RepositoryFilter? = nil, sortedBy sortMode: RepositorySortMode<Model>? = nil) -> AnyRandomAccessCollection<Model> {
+    public func getElements(filteredBy filter: RepositoryFilter? = nil, sortedBy sortMode: RepositorySortMode<Model>? = nil) -> AnyRandomAccessCollection<Model> {
+        return getElements(filteredBy: filter, sortedBy: sortMode)
+    }
+
+    public func getElements(filteredByPredicate predicateFormat: String? = nil, _ args: Any..., sortedBy keyPath: PartialKeyPath<Model>? = nil) -> AnyRandomAccessCollection<Model> {
+        let filter = predicateFormat.map { RepositoryFilter.predicateString($0, args) }
+        let sortMode = keyPath.map { RepositorySortMode.keyPath($0) }
         return getElements(filteredBy: filter, sortedBy: sortMode)
     }
 
