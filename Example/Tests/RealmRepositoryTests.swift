@@ -68,6 +68,14 @@ class RealmRepositoryTests: XCTestCase {
         XCTAssert(filteredEmployees.last?.age == stdlibSortedEmployees.last?.age)
     }
 
+    func testDistinct() {
+        let stdlibFilteredAges = Set(testEmployees.map { $0.age })
+        let distinctAgeEmployees = repository.getElements(distinctUsing: .keyPath(\QuickEmployee.age))
+        let ages = distinctAgeEmployees.map { $0.age }
+
+        XCTAssert(stdlibFilteredAges.count == ages.count)
+    }
+
     // MARK: Helper Methods
 
     private func addRandomMockObjects(to repository: RealmRepository<QuickEmployee>) {

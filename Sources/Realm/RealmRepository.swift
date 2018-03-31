@@ -33,7 +33,7 @@ public class RealmRepository<Object: RealmSwift.Object>: Repository {
         return object
     }
 
-    public func getElements(filteredBy filter: RepositoryFilter?, sortedBy sortMode: RepositorySortMode<Model>?) -> AnyRandomAccessCollection<Model> {
+    public func getElements(filteredBy filter: RepositoryFilter?, sortedBy sortMode: RepositorySortMode<Model>?, distinctUsing distinctMode: RepositoryDistinctMode<Model>?) -> AnyRandomAccessCollection<Model> {
         var objects = realm.objects(Model.self)
 
         switch filter {
@@ -52,6 +52,15 @@ public class RealmRepository<Object: RealmSwift.Object>: Repository {
             objects = objects.sorted(byKeyPath: keyPath, ascending: ascending)
         case .some(let .swiftKeyPath(keyPath, ascending)):
             objects = objects.sorted(byKeyPath: keyPath._kvcKeyPathString! as String, ascending: ascending)
+        }
+
+        switch distinctMode {
+        case .none:
+            break
+        case .some(let .stringKeyPath(keyPath)):
+            objects = objects.distinct(by: [keyPath])
+        case .some(let .swiftKeyPath(keyPath)):
+            objects = objects.distinct(by: [keyPath._kvcKeyPathString! as String])
         }
 
         return AnyRandomAccessCollection(objects)

@@ -12,7 +12,7 @@ public final class AnyRepository<Model>: Repository {
 
     private let _getAll: () -> AnyRandomAccessCollection<Model>
     private let _getElement: (Any) -> Model?
-    private let _getElements: (RepositoryFilter?, RepositorySortMode<Model>?) -> AnyRandomAccessCollection<Model>
+    private let _getElements: (RepositoryFilter?, RepositorySortMode<Model>?, RepositoryDistinctMode<Model>?) -> AnyRandomAccessCollection<Model>
     private let _create: (Model) -> RepositoryEditResult<Model>
     private let _createMultiple: ([Model]) -> RepositoryEditResult<[Model]>
     private let _update: (Model) -> RepositoryEditResult<Model>
@@ -42,8 +42,8 @@ public final class AnyRepository<Model>: Repository {
         return _getElement(id)
     }
 
-    public func getElements(filteredBy filter: RepositoryFilter?, sortedBy sortMode: RepositorySortMode<Model>?) -> AnyRandomAccessCollection<Model> {
-        return _getElements(filter, sortMode)
+    public func getElements(filteredBy filter: RepositoryFilter?, sortedBy sortMode: RepositorySortMode<Model>?, distinctUsing distinctMode: RepositoryDistinctMode<Model>?) -> AnyRandomAccessCollection<Model> {
+        return _getElements(filter, sortMode, distinctMode)
     }
 
     @discardableResult public func create(_ model: Model) -> RepositoryEditResult<Model> {

@@ -34,6 +34,19 @@ public enum RepositorySortMode<Model> {
     }
 }
 
+public enum RepositoryDistinctMode<Model> {
+    case stringKeyPath(String)
+    case swiftKeyPath(PartialKeyPath<Model>)
+
+    public static func keyPath(_ keyPath: String) -> RepositoryDistinctMode<Model> {
+        return .stringKeyPath(keyPath)
+    }
+
+    public static func keyPath(_ keyPath: PartialKeyPath<Model>) -> RepositoryDistinctMode<Model> {
+        return .swiftKeyPath(keyPath)
+    }
+}
+
 public func unwrapArgs(_ args: [Any]) -> [Any] {
     let unrwappedArgs = args.flatMap { arg -> [Any] in
         if let arg = arg as? [Any] {
@@ -43,9 +56,5 @@ public func unwrapArgs(_ args: [Any]) -> [Any] {
         }
     }
 
-    if unrwappedArgs.contains(where: { $0 is [Any] }) {
-        return unwrapArgs(unrwappedArgs)
-    } else {
-        return unrwappedArgs
-    }
+    return unrwappedArgs
 }
