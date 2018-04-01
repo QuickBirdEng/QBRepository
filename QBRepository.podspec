@@ -35,6 +35,11 @@ QBRepository is a simple implementation of the repository pattern for data acces
     ss.dependency 'RealmSwift', '~> 3.0'
   end
 
+  s.subspec 'FileSystem' do |ss|
+    ss.source_files = 'Sources/FileSystem/*.swift'
+    ss.dependency 'QBRepository/Core'
+  end
+
   s.subspec 'RxSwift' do |ss|
     ss.source_files = 'Sources/RxSwift/*.swift'
     ss.dependency 'QBRepository/Core'

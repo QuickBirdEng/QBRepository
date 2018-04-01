@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		607FACEC1AFB9204008FA782 /* RealmRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* RealmRepositoryTests.swift */; };
 		CB13278EAE7030AE743707E3 /* Pods_QBRepository_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E042B0CA17BDC289D52A4A3C /* Pods_QBRepository_Tests.framework */; };
+		F64420DB206FB6AF005F08D4 /* FileSystemRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64420DA206FB6AF005F08D4 /* FileSystemRepositoryTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +22,7 @@
 		D70E20B9F90E8EA566F0C80D /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		E042B0CA17BDC289D52A4A3C /* Pods_QBRepository_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QBRepository_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5C5DBBB8777ED2E11D0EA92 /* QBRepository.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = QBRepository.podspec; path = ../QBRepository.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		F64420DA206FB6AF005F08D4 /* FileSystemRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSystemRepositoryTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 			isa = PBXGroup;
 			children = (
 				607FACEB1AFB9204008FA782 /* RealmRepositoryTests.swift */,
+				F64420DA206FB6AF005F08D4 /* FileSystemRepositoryTests.swift */,
 				607FACE91AFB9204008FA782 /* Supporting Files */,
 			);
 			path = Tests;
@@ -231,6 +234,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F64420DB206FB6AF005F08D4 /* FileSystemRepositoryTests.swift in Sources */,
 				607FACEC1AFB9204008FA782 /* RealmRepositoryTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
