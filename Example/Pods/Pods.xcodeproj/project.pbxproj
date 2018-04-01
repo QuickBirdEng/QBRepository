@@ -364,7 +364,9 @@
 		F631955020712B98000A6583 /* Property.swift in Sources */ = {isa = PBXBuildFile; fileRef = F631954C20712B97000A6583 /* Property.swift */; };
 		F631955120712B98000A6583 /* Predicate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F631954D20712B98000A6583 /* Predicate.swift */; };
 		F631955420713A48000A6583 /* FileSystemRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F631955320713A48000A6583 /* FileSystemRepository.swift */; };
-		F67D5FE620668E7300A76F7D /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F67D5FE420668E6600A76F7D /* Utils.swift */; };
+		F631955620714175000A6583 /* RepositoryEditResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = F631955520714174000A6583 /* RepositoryEditResult.swift */; };
+		F6319558207141A8000A6583 /* HashableKeyPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6319557207141A8000A6583 /* HashableKeyPath.swift */; };
+		F67D5FE620668E7300A76F7D /* ComparableKeyPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = F67D5FE420668E6600A76F7D /* ComparableKeyPath.swift */; };
 		F6BF2038393C2EC107292C8C908AA07C /* ObservableType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E2E1F0D02CE4FFFBE83DFCEFA2F7B4B /* ObservableType.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		F7FBEA7640DA4680BC99E12B4693F695 /* ObserverType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4825667CC72E0BFE8F227CC02A4EDBF9 /* ObserverType.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		F935B60208C0D8C2A2685DE4C9F7EE78 /* RLMObjectBase_Dynamic.h in Copy . Public Headers */ = {isa = PBXBuildFile; fileRef = 4859130D8EEE234231CE17D5DBBBD8DF /* RLMObjectBase_Dynamic.h */; };
@@ -835,7 +837,9 @@
 		F631954C20712B97000A6583 /* Property.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Property.swift; sourceTree = "<group>"; };
 		F631954D20712B98000A6583 /* Predicate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Predicate.swift; sourceTree = "<group>"; };
 		F631955320713A48000A6583 /* FileSystemRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileSystemRepository.swift; sourceTree = "<group>"; };
-		F67D5FE420668E6600A76F7D /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Utils.swift; path = Sources/Utils.swift; sourceTree = "<group>"; };
+		F631955520714174000A6583 /* RepositoryEditResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryEditResult.swift; sourceTree = "<group>"; };
+		F6319557207141A8000A6583 /* HashableKeyPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashableKeyPath.swift; sourceTree = "<group>"; };
+		F67D5FE420668E6600A76F7D /* ComparableKeyPath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ComparableKeyPath.swift; path = Sources/ComparableKeyPath.swift; sourceTree = "<group>"; };
 		F68BC53813F23E49A87902D18EF28BDC /* ObserverBase.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ObserverBase.swift; path = RxSwift/Observers/ObserverBase.swift; sourceTree = "<group>"; };
 		F820B01EA39718092049079B231DAB7F /* Bag.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Bag.swift; path = Platform/DataStructures/Bag.swift; sourceTree = "<group>"; };
 		F865E5AA73098DB4F91E01BA4D67ECBE /* sync_session.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = sync_session.cpp; path = Realm/ObjectStore/src/sync/sync_session.cpp; sourceTree = "<group>"; };
@@ -924,11 +928,13 @@
 			children = (
 				D0866261537EABFFE702C2FDE8671438 /* AnyRepository.swift */,
 				09D3B23A0BD7E1FB3E8B8A26F06BF6C5 /* Repository.swift */,
-				F67D5FE420668E6600A76F7D /* Utils.swift */,
 				F631954B20712B97000A6583 /* Query.swift */,
 				F631954C20712B97000A6583 /* Property.swift */,
 				F631954D20712B98000A6583 /* Predicate.swift */,
 				F631954A20712B97000A6583 /* Operator.swift */,
+				F631955520714174000A6583 /* RepositoryEditResult.swift */,
+				F67D5FE420668E6600A76F7D /* ComparableKeyPath.swift */,
+				F6319557207141A8000A6583 /* HashableKeyPath.swift */,
 			);
 			name = Core;
 			sourceTree = "<group>";
@@ -1944,10 +1950,12 @@
 				F631955020712B98000A6583 /* Property.swift in Sources */,
 				6596B9F289062F741E1D90E505706EF1 /* QBRepository-dummy.m in Sources */,
 				9EC1819B8724E03E4E801A5D32AF83A6 /* Realm+Cascade.swift in Sources */,
-				F67D5FE620668E7300A76F7D /* Utils.swift in Sources */,
+				F67D5FE620668E7300A76F7D /* ComparableKeyPath.swift in Sources */,
 				F631955120712B98000A6583 /* Predicate.swift in Sources */,
 				AB471DF799ED7469898C3616AEE23325 /* RealmRepository.swift in Sources */,
 				6010AFD30DD6A6115C90CD5781E30EA5 /* Repository.swift in Sources */,
+				F6319558207141A8000A6583 /* HashableKeyPath.swift in Sources */,
+				F631955620714175000A6583 /* RepositoryEditResult.swift in Sources */,
 				F631954E20712B98000A6583 /* Operator.swift in Sources */,
 				AD3B056BC89052AA38057556B41B0999 /* RxRepository.swift in Sources */,
 			);
