@@ -1,9 +1,8 @@
 //
 //  AnyRepository.swift
-//  Fahrerclub
+//  QBRepository
 //
-//  Created by Stefan Kofler on 10.03.18.
-//  Copyright © 2018 Zeppelin GmbH. All rights reserved.
+//  Created by Stefan Kofler on 24.03.18.
 //
 
 import Foundation
@@ -12,7 +11,7 @@ public final class AnyRepository<Model>: Repository {
 
     private let _getAll: () -> AnyRandomAccessCollection<Model>
     private let _getElement: (Any) -> Model?
-    private let _getElements: (RepositoryFilter?, RepositorySortMode<Model>?, RepositoryDistinctMode<Model>?) -> AnyRandomAccessCollection<Model>
+    private let _getElements: (Query<Model>?, ComparableKeyPath<Model>?, HashableKeyPath<Model>?) -> AnyRandomAccessCollection<Model>
     private let _create: (Model) -> RepositoryEditResult<Model>
     private let _createMultiple: ([Model]) -> RepositoryEditResult<[Model]>
     private let _update: (Model) -> RepositoryEditResult<Model>
@@ -42,7 +41,7 @@ public final class AnyRepository<Model>: Repository {
         return _getElement(id)
     }
 
-    public func getElements(filteredBy filter: RepositoryFilter?, sortedBy sortMode: RepositorySortMode<Model>?, distinctUsing distinctMode: RepositoryDistinctMode<Model>?) -> AnyRandomAccessCollection<Model> {
+    public func getElements(filteredBy filter: Query<Model>?, sortedBy sortMode: ComparableKeyPath<Model>?, distinctUsing distinctMode: HashableKeyPath<Model>?) -> AnyRandomAccessCollection<Model> {
         return _getElements(filter, sortMode, distinctMode)
     }
 

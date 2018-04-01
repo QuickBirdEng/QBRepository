@@ -41,9 +41,9 @@ public class RxRepository<Model> {
         }
     }
 
-    public func getElements(filteredBy filter: RepositoryFilter? = nil, sortedBy sortMode: RepositorySortMode<Model>? = nil) -> Single<AnyRandomAccessCollection<Model>> {
+    public func getElements(filteredBy filter: Query<Model>? = nil, sortedBy sortMode: ComparableKeyPath<Model>? = nil) -> Single<AnyRandomAccessCollection<Model>> {
         return Single.create { single -> Disposable in
-            let models = self.base.getElements(filteredBy: filter, sortedBy: sortMode)
+            let models = self.base.getElements(filteredBy: filter, sortedBy: sortMode, distinctUsing: nil)
             single(.success(models))
             return Disposables.create()
         }

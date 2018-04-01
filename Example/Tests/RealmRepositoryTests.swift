@@ -4,9 +4,9 @@ import RealmSwift
 
 class RealmRepositoryTests: XCTestCase {
 
-    var repository: RealmRepository<QuickEmployee>!
+    fileprivate var repository: RealmRepository<QuickEmployee>!
 
-    let testEmployees: [QuickEmployee] = [
+    fileprivate let testEmployees: [QuickEmployee] = [
         QuickEmployee(name: "Quirin", age: 21, data: Data()),
         QuickEmployee(name: "Stefan", age: 24, data: Data()),
         QuickEmployee(name: "Sebi", age: 22, data: Data()),
@@ -45,7 +45,7 @@ class RealmRepositoryTests: XCTestCase {
         let newEmployeeName = "Zementha"
         repository.create(QuickEmployee(name: newEmployeeName, age: 34, data: Data()))
 
-        let filteredEmployees = repository.getElements(filteredBy: .predicateString("name = %@", newEmployeeName))
+        let filteredEmployees = repository.getElements(filteredByPredicate: \.name == newEmployeeName)
         guard let firstEmployee = filteredEmployees.first else { return }
 
         XCTAssertEqual(firstEmployee.name, newEmployeeName)
@@ -54,7 +54,7 @@ class RealmRepositoryTests: XCTestCase {
 
     func testSortingAscending() {
         let stdlibSortedEmployees = testEmployees.sorted(by: { $0.age < $1.age })
-        let filteredEmployees = repository.getElements(sortedBy: .keyPath(\QuickEmployee.age))
+        let filteredEmployees = repository.getElements(sortedBy: \.age)
 
         XCTAssert(filteredEmployees.first?.age == stdlibSortedEmployees.first?.age)
         XCTAssert(filteredEmployees.last?.age == stdlibSortedEmployees.last?.age)
@@ -62,7 +62,7 @@ class RealmRepositoryTests: XCTestCase {
 
     func testSortingDescending() {
         let stdlibSortedEmployees = testEmployees.sorted(by: { $0.age > $1.age })
-        let filteredEmployees = repository.getElements(sortedBy: .keyPath(\QuickEmployee.age, ascending: false))
+        let filteredEmployees = repository.getElements(sortedBy: \.age).reversed()
 
         XCTAssert(filteredEmployees.first?.age == stdlibSortedEmployees.first?.age)
         XCTAssert(filteredEmployees.last?.age == stdlibSortedEmployees.last?.age)
@@ -70,7 +70,7 @@ class RealmRepositoryTests: XCTestCase {
 
     func testDistinct() {
         let stdlibFilteredAges = Set(testEmployees.map { $0.age })
-        let distinctAgeEmployees = repository.getElements(distinctUsing: .keyPath(\QuickEmployee.age))
+        let distinctAgeEmployees = repository.getElements(distinctUsing: \.age)
         let ages = distinctAgeEmployees.map { $0.age }
 
         XCTAssert(stdlibFilteredAges.count == ages.count)

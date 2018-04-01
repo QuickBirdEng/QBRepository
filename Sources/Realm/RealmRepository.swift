@@ -33,34 +33,19 @@ public class RealmRepository<Object: RealmSwift.Object>: Repository {
         return object
     }
 
-    public func getElements(filteredBy filter: RepositoryFilter?, sortedBy sortMode: RepositorySortMode<Model>?, distinctUsing distinctMode: RepositoryDistinctMode<Model>?) -> AnyRandomAccessCollection<Model> {
+    public func getElements(filteredBy filter: Query<Model>?, sortedBy sortKeyPath: ComparableKeyPath<Model>?, distinctUsing distinctKeyPath: HashableKeyPath<Model>?) -> AnyRandomAccessCollection<Model> {
         var objects = realm.objects(Model.self)
 
-        switch filter {
-        case .none:
-            break
-        case .some(.predicate(let predicate)):
-            objects = objects.filter(predicate)
-        case .some(let .string(predicateFormat, args)):
-            objects = objects.filter(NSPredicate(format: predicateFormat, argumentArray: args))
+        if let query = filter {
+            objects = objects.filter(query.createPredicate())
         }
 
-        switch sortMode {
-        case .none:
-            break
-        case .some(let .stringKeyPath(keyPath, ascending)):
-            objects = objects.sorted(byKeyPath: keyPath, ascending: ascending)
-        case .some(let .swiftKeyPath(keyPath, ascending)):
-            objects = objects.sorted(byKeyPath: keyPath._kvcKeyPathString! as String, ascending: ascending)
+        if let sortKeyPath = sortKeyPath {
+            objects = objects.sorted(byKeyPath: sortKeyPath.string())
         }
 
-        switch distinctMode {
-        case .none:
-            break
-        case .some(let .stringKeyPath(keyPath)):
-            objects = objects.distinct(by: [keyPath])
-        case .some(let .swiftKeyPath(keyPath)):
-            objects = objects.distinct(by: [keyPath._kvcKeyPathString! as String])
+        if let distinctKeyPath = distinctKeyPath {
+            objects = objects.distinct(by: [distinctKeyPath.string()])
         }
 
         return AnyRandomAccessCollection(objects)
