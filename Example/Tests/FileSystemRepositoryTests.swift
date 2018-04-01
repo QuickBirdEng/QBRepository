@@ -83,7 +83,7 @@ class FileSystemRepositoryTests: XCTestCase {
 
 }
 
-fileprivate class Employee: IdentifiableCodable {
+class Employee: IdentifiableCodable {
     var id: String = ""
     var name: String = ""
     var age: Int = 0

@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'QBRepository'
-  s.version          = '0.6.0'
+  s.version          = '0.6.1'
   s.summary          = 'QBRepository is a simple implementation of the repository pattern for data access in Swift.'
 
   s.description      = <<-DESC
@@ -37,6 +37,11 @@ QBRepository is a simple implementation of the repository pattern for data acces
 
   s.subspec 'FileSystem' do |ss|
     ss.source_files = 'Sources/FileSystem/*.swift'
+    ss.dependency 'QBRepository/Core'
+  end
+
+  s.subspec 'CoreData' do |ss|
+    ss.source_files = 'Sources/CoreData/*.swift'
     ss.dependency 'QBRepository/Core'
   end
 

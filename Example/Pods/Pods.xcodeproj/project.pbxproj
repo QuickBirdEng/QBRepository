@@ -359,13 +359,14 @@
 		F2B1B85FD90D97A9AAF945DFF9A5E359 /* RealmSwift-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 75EF77B6E708809665D6D7D56E6DCFC3 /* RealmSwift-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F52F397CA5DEBECEA3615DB352F0C83D /* SynchronizedDisposeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08A15BAB7E1DE774C87F01CFA1DD9FC /* SynchronizedDisposeType.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		F54929DFA853986385468132B64E529E /* NSError+RLMSync.h in Headers */ = {isa = PBXBuildFile; fileRef = F9A88E1408E320E67F748AF91016547D /* NSError+RLMSync.h */; };
-		F631954E20712B98000A6583 /* Operator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F631954A20712B97000A6583 /* Operator.swift */; };
-		F631954F20712B98000A6583 /* Query.swift in Sources */ = {isa = PBXBuildFile; fileRef = F631954B20712B97000A6583 /* Query.swift */; };
-		F631955020712B98000A6583 /* Property.swift in Sources */ = {isa = PBXBuildFile; fileRef = F631954C20712B97000A6583 /* Property.swift */; };
-		F631955120712B98000A6583 /* Predicate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F631954D20712B98000A6583 /* Predicate.swift */; };
 		F631955420713A48000A6583 /* FileSystemRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F631955320713A48000A6583 /* FileSystemRepository.swift */; };
-		F631955620714175000A6583 /* RepositoryEditResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = F631955520714174000A6583 /* RepositoryEditResult.swift */; };
-		F6319558207141A8000A6583 /* HashableKeyPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6319557207141A8000A6583 /* HashableKeyPath.swift */; };
+		F631956520718D88000A6583 /* CoreDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F631956420718D88000A6583 /* CoreDataRepository.swift */; };
+		F631956B20719087000A6583 /* Operator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F631956620719086000A6583 /* Operator.swift */; };
+		F631956C20719087000A6583 /* Predicate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F631956720719086000A6583 /* Predicate.swift */; };
+		F631956D20719087000A6583 /* HashableKeyPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = F631956820719086000A6583 /* HashableKeyPath.swift */; };
+		F631956E20719087000A6583 /* Query.swift in Sources */ = {isa = PBXBuildFile; fileRef = F631956920719086000A6583 /* Query.swift */; };
+		F631956F20719087000A6583 /* Property.swift in Sources */ = {isa = PBXBuildFile; fileRef = F631956A20719087000A6583 /* Property.swift */; };
+		F631957120719213000A6583 /* RepositoryEditResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = F631957020719213000A6583 /* RepositoryEditResult.swift */; };
 		F67D5FE620668E7300A76F7D /* ComparableKeyPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = F67D5FE420668E6600A76F7D /* ComparableKeyPath.swift */; };
 		F6BF2038393C2EC107292C8C908AA07C /* ObservableType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E2E1F0D02CE4FFFBE83DFCEFA2F7B4B /* ObservableType.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		F7FBEA7640DA4680BC99E12B4693F695 /* ObserverType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4825667CC72E0BFE8F227CC02A4EDBF9 /* ObserverType.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
@@ -832,13 +833,14 @@
 		F5110A4D574EEA42B86D799B0157E329 /* QBRepository.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = QBRepository.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5E5193FE33FD307A1A644052231CB8F /* RLMMigration_Private.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RLMMigration_Private.h; path = include/RLMMigration_Private.h; sourceTree = "<group>"; };
 		F5F04773BD2DFB0D836E9FAD530DB1AC /* RxSwift-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "RxSwift-umbrella.h"; sourceTree = "<group>"; };
-		F631954A20712B97000A6583 /* Operator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Operator.swift; sourceTree = "<group>"; };
-		F631954B20712B97000A6583 /* Query.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Query.swift; sourceTree = "<group>"; };
-		F631954C20712B97000A6583 /* Property.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Property.swift; sourceTree = "<group>"; };
-		F631954D20712B98000A6583 /* Predicate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Predicate.swift; sourceTree = "<group>"; };
 		F631955320713A48000A6583 /* FileSystemRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileSystemRepository.swift; sourceTree = "<group>"; };
-		F631955520714174000A6583 /* RepositoryEditResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryEditResult.swift; sourceTree = "<group>"; };
-		F6319557207141A8000A6583 /* HashableKeyPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashableKeyPath.swift; sourceTree = "<group>"; };
+		F631956420718D88000A6583 /* CoreDataRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataRepository.swift; sourceTree = "<group>"; };
+		F631956620719086000A6583 /* Operator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Operator.swift; path = Sources/Operator.swift; sourceTree = "<group>"; };
+		F631956720719086000A6583 /* Predicate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Predicate.swift; path = Sources/Predicate.swift; sourceTree = "<group>"; };
+		F631956820719086000A6583 /* HashableKeyPath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HashableKeyPath.swift; path = Sources/HashableKeyPath.swift; sourceTree = "<group>"; };
+		F631956920719086000A6583 /* Query.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Query.swift; path = Sources/Query.swift; sourceTree = "<group>"; };
+		F631956A20719087000A6583 /* Property.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Property.swift; path = Sources/Property.swift; sourceTree = "<group>"; };
+		F631957020719213000A6583 /* RepositoryEditResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RepositoryEditResult.swift; path = Sources/RepositoryEditResult.swift; sourceTree = "<group>"; };
 		F67D5FE420668E6600A76F7D /* ComparableKeyPath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ComparableKeyPath.swift; path = Sources/ComparableKeyPath.swift; sourceTree = "<group>"; };
 		F68BC53813F23E49A87902D18EF28BDC /* ObserverBase.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ObserverBase.swift; path = RxSwift/Observers/ObserverBase.swift; sourceTree = "<group>"; };
 		F820B01EA39718092049079B231DAB7F /* Bag.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Bag.swift; path = Platform/DataStructures/Bag.swift; sourceTree = "<group>"; };
@@ -928,13 +930,13 @@
 			children = (
 				D0866261537EABFFE702C2FDE8671438 /* AnyRepository.swift */,
 				09D3B23A0BD7E1FB3E8B8A26F06BF6C5 /* Repository.swift */,
-				F631954B20712B97000A6583 /* Query.swift */,
-				F631954C20712B97000A6583 /* Property.swift */,
-				F631954D20712B98000A6583 /* Predicate.swift */,
-				F631954A20712B97000A6583 /* Operator.swift */,
-				F631955520714174000A6583 /* RepositoryEditResult.swift */,
+				F631957020719213000A6583 /* RepositoryEditResult.swift */,
 				F67D5FE420668E6600A76F7D /* ComparableKeyPath.swift */,
-				F6319557207141A8000A6583 /* HashableKeyPath.swift */,
+				F631956820719086000A6583 /* HashableKeyPath.swift */,
+				F631956620719086000A6583 /* Operator.swift */,
+				F631956720719086000A6583 /* Predicate.swift */,
+				F631956A20719087000A6583 /* Property.swift */,
+				F631956920719086000A6583 /* Query.swift */,
 			);
 			name = Core;
 			sourceTree = "<group>";
@@ -1158,6 +1160,7 @@
 				68D3F3B64F7858E0992EF594A4D7066D /* Pod */,
 				B4DE7B7602C81035F6D658745179F00B /* Realm */,
 				F631955220713A48000A6583 /* FileSystem */,
+				F631956320718D88000A6583 /* CoreData */,
 				AE04149A32B40C5AA0E89EBC87AB6DF9 /* RxSwift */,
 				C8C7CE62D77FA4B691CC00AF8DAFB4A6 /* Support Files */,
 			);
@@ -1441,6 +1444,15 @@
 			);
 			name = FileSystem;
 			path = Sources/FileSystem;
+			sourceTree = "<group>";
+		};
+		F631956320718D88000A6583 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				F631956420718D88000A6583 /* CoreDataRepository.swift */,
+			);
+			name = CoreData;
+			path = Sources/CoreData;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1944,20 +1956,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F631954F20712B98000A6583 /* Query.swift in Sources */,
+				F631956F20719087000A6583 /* Property.swift in Sources */,
 				634A09F07B928F1805C0D601ABF8ED5F /* AnyRepository.swift in Sources */,
 				F631955420713A48000A6583 /* FileSystemRepository.swift in Sources */,
-				F631955020712B98000A6583 /* Property.swift in Sources */,
 				6596B9F289062F741E1D90E505706EF1 /* QBRepository-dummy.m in Sources */,
 				9EC1819B8724E03E4E801A5D32AF83A6 /* Realm+Cascade.swift in Sources */,
 				F67D5FE620668E7300A76F7D /* ComparableKeyPath.swift in Sources */,
-				F631955120712B98000A6583 /* Predicate.swift in Sources */,
+				F631956B20719087000A6583 /* Operator.swift in Sources */,
 				AB471DF799ED7469898C3616AEE23325 /* RealmRepository.swift in Sources */,
+				F631956C20719087000A6583 /* Predicate.swift in Sources */,
+				F631956E20719087000A6583 /* Query.swift in Sources */,
+				F631957120719213000A6583 /* RepositoryEditResult.swift in Sources */,
 				6010AFD30DD6A6115C90CD5781E30EA5 /* Repository.swift in Sources */,
-				F6319558207141A8000A6583 /* HashableKeyPath.swift in Sources */,
-				F631955620714175000A6583 /* RepositoryEditResult.swift in Sources */,
-				F631954E20712B98000A6583 /* Operator.swift in Sources */,
+				F631956520718D88000A6583 /* CoreDataRepository.swift in Sources */,
 				AD3B056BC89052AA38057556B41B0999 /* RxRepository.swift in Sources */,
+				F631956D20719087000A6583 /* HashableKeyPath.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
