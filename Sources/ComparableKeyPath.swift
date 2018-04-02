@@ -12,7 +12,7 @@ public class ComparableKeyPath<Model> {
     private let _isSmaller: (Model, Model) -> Bool
     private let _string: () -> String
 
-    init<T: Comparable>(_ keyPath: KeyPath<Model, T>) {
+    public init<T: Comparable>(_ keyPath: KeyPath<Model, T>) {
         _isSmaller = { obj1, obj2 in
             obj1[keyPath: keyPath] < obj2[keyPath: keyPath]
         }

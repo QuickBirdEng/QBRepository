@@ -12,7 +12,7 @@ public class HashableKeyPath<Model> {
     private let _hashValue: (Model) -> Int
     private let _string: () -> String
 
-    init<T: Hashable>(_ keyPath: KeyPath<Model, T>) {
+    public init<T: Hashable>(_ keyPath: KeyPath<Model, T>) {
         _hashValue = { obj in
             return obj[keyPath: keyPath].hashValue
         }

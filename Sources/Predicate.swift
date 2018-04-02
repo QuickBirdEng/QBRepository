@@ -142,6 +142,18 @@ public struct StringContainsPredicate<ManagedObject, Property: RegexMatchablePro
     }
 }
 
+public struct EmptyPredicate<ManagedObject>: Predicate {
+    public typealias ResultType = ManagedObject
+
+    public var predicate: NSPredicate {
+        return NSPredicate()
+    }
+
+    public func evaluate(_ model: ManagedObject) -> Bool {
+        return true
+    }
+}
+
 public struct AndPredicate<ManagedObject>: Predicate {
     public typealias ResultType = ManagedObject
 
@@ -154,6 +166,11 @@ public struct AndPredicate<ManagedObject>: Predicate {
 
     public func evaluate(_ model: ManagedObject) -> Bool {
         return left.evaluate(model) && right.evaluate(model)
+    }
+
+    public static func compoundPredicate<T>(of predicates: [AnyPredicate<T>]) -> AnyPredicate<T> {
+        guard let firstPredicate = predicates.first else { return AnyPredicate(EmptyPredicate<T>()) }
+        return firstPredicate && compoundPredicate(of: Array(predicates.dropFirst()))
     }
 }
 
@@ -169,6 +186,11 @@ public struct OrPredicate<ManagedObject>: Predicate {
 
     public func evaluate(_ model: ManagedObject) -> Bool {
         return left.evaluate(model) || right.evaluate(model)
+    }
+
+    public static func compoundPredicate<T>(of predicates: [AnyPredicate<T>]) -> AnyPredicate<T> {
+        guard let firstPredicate = predicates.first else { return AnyPredicate(EmptyPredicate<T>()) }
+        return firstPredicate || compoundPredicate(of: Array(predicates.dropFirst()))
     }
 }
 
