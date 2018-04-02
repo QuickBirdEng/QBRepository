@@ -35,6 +35,10 @@ public func ~= <Model, Property: RegexMatchableProperty>(lhs: KeyPath<Model, Pro
     return AnyPredicate(RegexPredicate(keyPath: lhs, pattern: rhs))
 }
 
+public func << <Model, Property: RegexMatchableProperty>(lhs: KeyPath<Model, Property>, rhs: String) -> AnyPredicate<Model> {
+    return AnyPredicate(StringContainsPredicate(keyPath: lhs, otherString: rhs))
+}
+
 public func << <Model, Property: EquatableProperty>(lhs: KeyPath<Model, Property>, rhs: [Property]) -> AnyPredicate<Model> {
     return AnyPredicate(InPredicate(keyPath: lhs, properties: rhs))
 }

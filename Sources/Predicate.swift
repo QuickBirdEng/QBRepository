@@ -126,6 +126,22 @@ public struct ClosedRangePredicate<ManagedObject, Property: ComparableProperty>:
     }
 }
 
+public struct StringContainsPredicate<ManagedObject, Property: RegexMatchableProperty>: Predicate {
+    public typealias ResultType = ManagedObject
+
+    let keyPath: KeyPath<ManagedObject, Property>
+    let otherString: String
+
+    public var predicate: NSPredicate {
+        return NSPredicate(format: "%K CONTAINTS[cd] %@", argumentArray: [keyPath._kvcKeyPathString! as NSString, otherString])
+    }
+
+    public func evaluate(_ model: ManagedObject) -> Bool {
+        guard let string = model[keyPath: keyPath] as? String else { return false }
+        return string.lowercased().contains(otherString.lowercased())
+    }
+}
+
 public struct AndPredicate<ManagedObject>: Predicate {
     public typealias ResultType = ManagedObject
 

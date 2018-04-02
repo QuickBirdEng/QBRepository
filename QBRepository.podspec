@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'QBRepository'
-  s.version          = '0.6.1'
+  s.version          = '0.6.2'
   s.summary          = 'QBRepository is a simple implementation of the repository pattern for data access in Swift.'
 
   s.description      = <<-DESC
