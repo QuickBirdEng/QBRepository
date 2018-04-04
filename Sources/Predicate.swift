@@ -145,8 +145,10 @@ public struct StringContainsPredicate<ManagedObject, Property: RegexMatchablePro
 public struct EmptyPredicate<ManagedObject>: Predicate {
     public typealias ResultType = ManagedObject
 
+    public init() {}
+
     public var predicate: NSPredicate {
-        return NSPredicate()
+        return NSPredicate(value: true)
     }
 
     public func evaluate(_ model: ManagedObject) -> Bool {
