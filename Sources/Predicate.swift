@@ -133,7 +133,7 @@ public struct StringContainsPredicate<ManagedObject, Property: RegexMatchablePro
     let otherString: String
 
     public var predicate: NSPredicate {
-        return NSPredicate(format: "%K CONTAINTS[cd] %@", argumentArray: [keyPath._kvcKeyPathString! as NSString, otherString])
+        return NSPredicate(format: "%K CONTAINS[cd] %@", argumentArray: [keyPath._kvcKeyPathString! as NSString, otherString])
     }
 
     public func evaluate(_ model: ManagedObject) -> Bool {
